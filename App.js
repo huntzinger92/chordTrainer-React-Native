@@ -91,7 +91,7 @@ class Test extends React.Component {
     this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleTranspositions = this.handleTranspositions.bind(this);
     this.handleInversions = this.handleInversions.bind(this);
-    this.handleSeventhChords = this.handleSeventhChords.bind(this);
+    this.toggleChordClass = this.toggleChordClass.bind(this);
     this.handleLoop = this.handleLoop.bind(this);
     this.handleChordAllowedChange = this.handleChordAllowedChange.bind(this);
     this.playSound = this.playSound.bind(this);
@@ -154,14 +154,26 @@ class Test extends React.Component {
   };
 
   async loadAndPlaySound(chordObj) {
-    console.log('loadAndPlaySound called');
     try {
       await this.playbackObject.unloadAsync();
     } catch(error) {
-
+      console.log("couldn't unload sound because: " + error);
     };
-    await this.playbackObject.loadAsync(chordObj.src, {}, downloadFirst = true);
-    await this.playbackObject.playAsync();
+    try {
+      await this.playbackObject.loadAsync(chordObj.src, {}, downloadFirst = true);
+    } catch(error) {
+      console.log('could not play sound because: ' + error);
+    }
+    if (this.state.transpositions) {
+      console.log('this.detuneValue: ' + this.detuneValue);
+      await this.playbackObject.setRateAsync(this.detuneValue, shouldCorrectPitch = false);
+    };
+    try {
+      await this.playbackObject.playAsync();
+    } catch (error) {
+      console.log("sound didn't play because");
+      console.log(error);
+    };
   };
 
   //HANDLERS FOR SETTING CHANGES
@@ -273,8 +285,8 @@ class Test extends React.Component {
   };
 
   //allow/disallow seventh chords
-  handleSeventhChords(e) {
-    if (e.target.checked) {
+  toggleChordClass(e) {
+    if (this.state.chordClass === 'triad') {
       this.setState({
         chordClass: 'seventh',
         chords: [],
@@ -300,8 +312,6 @@ class Test extends React.Component {
 
   //allow/disallow inViewidual chords
   handleChordAllowedChange(chordNumber, alreadyAllowed) {
-    console.log('chordNumber: ' + chordNumber);
-    console.log(alreadyAllowed);
     this.setState({ //clear out chords because we need a new set, set init to true for processing purposes elsewhere
       chords: [],
       init: true,
@@ -315,14 +325,11 @@ class Test extends React.Component {
       };
       return tempName === Number(chordNumber);
     });
-    console.log('allowedList before processing:');
-    console.log(this.state.allowedList);
+
     var tempAllowedList = this.state.allowedList;
 
     if (!alreadyAllowed) { //if chord needs to be allowed, add it to the list of allowed chords
       tempAllowedList.push(Number(chordNumber));
-      console.log('allowedList after processing:');
-      console.log(tempAllowedList);
       this.setState({
         allowedList: tempAllowedList
       });
@@ -340,8 +347,7 @@ class Test extends React.Component {
     } else { //else if chord has been forbidden, remove chord from allowed chords
       var tempIndex = tempAllowedList.indexOf(Number(chordNumber));
       tempAllowedList.splice(tempIndex, 1);
-      console.log('allowedList after processing:');
-      console.log(tempAllowedList);
+
       this.setState({
         allowedList: tempAllowedList
       });
@@ -452,7 +458,9 @@ class Test extends React.Component {
     if (this.state.init) {
       //note: this needs to be written to accomodate the speed setting of react-native-sound library. Speed is set as an integer percentage (.9 = 90%)
       if (this.state.transpositions) {
-        this.detuneValue = (((Math.floor(Math.random() * 6)) - 3) * 100); //anywhere from -300 to +200 cents (3 half steps down to 2 half steps up)
+        //1.0595 is the percent by which a frequency needs to be shifted to change by a half-step
+        this.detuneValue = (((Math.floor(Math.random() * 6)) - 3) * .05333) + 1; //ranges from -3 to +2 half steps, or 1 - 3*.05333 to 1 + 2*1.05333
+        //this.detuneValue = 0.84;
       };
       this.setState({
         init: false
@@ -478,19 +486,8 @@ class Test extends React.Component {
       //this.chordsToBePlayed[this.count].play()
       this.loadAndPlaySound(this.state.chords[this.count]);
       this.count++;
-      //var url = this.state.chords[this.count].src;
-      //three function here
-      //this.sound = new THREE.Audio(this.listener);
-      //if (this.state.transpositions) {
-        //this.sound.detune = this.detuneValue;
-      //};
-      //var tempSound = this.sound; //buffer code loses access to "this"
-      //this.audioLoader.load(url, function(buffer) {
-  	     //tempSound.setBuffer(buffer);
-  	     //tempSound.play();
-      //});
       if (this.state.transpositions) { //only stagger playback if transpositions are enabled
-        this.timeout = setTimeout(this.playMusic, 1710 - (this.detuneValue/2), this.state.amount); //note: timeout value has to be adjusted according to detune value because detune alters playback speed of chords
+        this.timeout = setTimeout(this.playMusic, 1710 * this.detuneValue, this.state.amount); //note: timeout value has to be adjusted according to detune value because detune alters playback speed of chords
       } else {
         this.timeout = setTimeout(this.playMusic, 1710, this.state.amount);
       };
@@ -504,7 +501,12 @@ class Test extends React.Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
+        {this.state.displaySettings && <View id='settings-wrapper'>
+        <Button
+          onPress={() => this.toggleDisplay()}
+          title="Back to the test"
+        />
         <Picker
           className='settings-dropdown'
           id='type-selection'
@@ -534,6 +536,46 @@ class Test extends React.Component {
           <Picker.Item label="7" value={7} />
           <Picker.Item label="8" value={8} />
         </Picker>
+        <View className='checkbox'>
+          <Text classnName='settings-text'>Allow Transpositions</Text>
+          <CheckBox
+            id="allow-transpositions"
+            onPress={() => this.handleTranspositions()}
+            checked={this.state.transpositions}
+          />
+        </View>
+        <View className='checkbox'>
+          <Text classnName='settings-text'>Allow Inversions</Text>
+          <CheckBox
+            id="allow-inversions"
+            onPress={() => this.handleInversions()}
+            checked={this.state.inversions}
+          />
+        </View>
+        <View className='checkbox'>
+          <Text classnName='settings-text'>Allow 7th Chords</Text>
+          <CheckBox
+            id="use-seventh-chords"
+            onPress={() => this.toggleChordClass()}
+            checked={this.state.chordClass === 'seventh'}
+          />
+        </View>
+        <View className='checkbox'>
+          <Text classnName='settings-text'>Loop Playback</Text>
+          <CheckBox
+            id="loop"
+            onPress={() => this.handleLoop()}
+            checked={this.state.loop}
+          />
+        </View>
+        <View className='checkbox'>
+          <Text classnName='settings-text'>Display All Possible Chords</Text>
+          <CheckBox
+            id="display-possible"
+            onPress={() => this.handleDisplayPossible()}
+            checked={this.state.displayPossible}
+          />
+        </View>
         <View id='allowed-wrapper'>
           <Text id='allowed-header' className='settings-label'>Allowed Chords:</Text>
           <View id='allowed-selections'>
@@ -622,25 +664,33 @@ class Test extends React.Component {
             </View>
           </View>
         </View>
-        <Button
-          onPress={() => {
-            this.playSound();
-          }}
-          title="Play"
-        />
-        <Button
-          onPress={() => {
-            this.handleStop();
-          }}
-          title="Stop"
-        />
-        <Button
-          onPress={() => {
-            this.handleGetNewChords();
-          }}
-          title="Get New Chords"
-        />
-      </View>
+        </View>}
+        {!this.state.displaySettings && <View id='quiz-wrapper'>
+          <Button
+            onPress={() => this.toggleDisplay()}
+            title='Configure Test'
+          />
+          <Button
+            onPress={() => {
+              this.playSound();
+            }}
+            title="Play"
+          />
+          <Button
+            onPress={() => {
+              this.handleStop();
+            }}
+            title="Stop"
+          />
+          <Button
+            onPress={() => {
+              this.handleGetNewChords();
+            }}
+            title="Get New Chords"
+          />
+          <Text>Quiz UI goes here</Text>
+        </View>}
+      </ScrollView>
       );
   };
 };
