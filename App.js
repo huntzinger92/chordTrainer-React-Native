@@ -688,10 +688,20 @@ class Test extends React.Component {
             }}
             title="Get New Chords"
           />
-          <Text>Quiz UI goes here</Text>
+          <View id='QuizUI'>
+            <QuizUI
+              chords = {this.state.chords}
+              chordsAllowed = {this.chordsAllowed}
+              amount = {this.state.amount}
+              minor = {this.state.minor}
+              chordClass = {this.state.chordClass}
+              displayPossible = {this.state.displayPossible}
+              init = {this.state.init}
+            />
+          </View>
         </View>}
       </ScrollView>
-      );
+    );
   };
 };
 
@@ -700,29 +710,42 @@ function CorrectButton(props) {
   if (Number(props.value) === 0) {
     return (
       <View className="View-chord-Button">
-        <Button className='chord-Button correct' id='given-one-chord' value={props.value} key={props.value} onPress={(e) => props.makeClicked(e)} disabled>
-          <Text>{props.chordName}</Text>
+        <Button
+          className='chord-Button correct'
+          id='given-one-chord'
+          value={props.value}
+          key={props.value}
+          onPress={() => props.makeClicked(props.value)}
+          title={props.chordName}
+          disabled
+        />
           <Text>Replace this item with fontAwesome check tag</Text>
-        </Button>
       </View>
     );
   } else {
     if (props.clicked) {
       return (
-        <View className="View-chord-Button" onPress={(e) => props.makeClicked(e)}>
-          <Button className='chord-Button correct' value={props.value} key={props.value} >
-            <Text>{props.chordName}</Text>
-            <Text>Replace this item with fontAwesome check tag</Text>
-          </Button>
+        <View className="View-chord-Button" onPress={() => props.makeClicked(props.value)}>
+          <Button
+            className='chord-Button correct'
+            value={props.value}
+            key={props.value}
+            title={props.chordName}
+          />
+          <Text>Replace this item with fontAwesome check tag</Text>
         </View>
       );
     } else {
       return (
         <View className="View-chord-Button">
-          <Button className='chord-Button unanswered' value={props.value} key={props.value} onPress={(e) => props.makeClicked(e)}>
-            <Text>{props.chordName}</Text>
-            <Text>Replace this item with fontAwesome check tag</Text>
-          </Button>
+          <Button
+            className='chord-Button unanswered'
+            value={props.value}
+            key={props.value}
+            onPress={() => props.makeClicked(props.value)}
+            title={props.chordName}
+          />
+          <Text>Replace this item with fontAwesome check tag</Text>
         </View>
       );
     };
@@ -735,19 +758,27 @@ function IncorrectButton(props) {
   if (props.clicked) {
     return (
       <View className="View-chord-Button">
-        <Button className='chord-Button incorrect' value={props.value} key={props.value} onPress={(e) => props.makeClicked(e)}>
-          <Text>{props.chordName}</Text>
-          <Text>Fontawesome X goes here</Text>
-        </Button>
+        <Button
+          className='chord-Button incorrect'
+          value={props.value}
+          key={props.value}
+          title={props.chordName}
+          onPress={() => props.makeClicked(props.value)}
+        />
+        <Text>Fontawesome X goes here</Text>
       </View>
     );
   } else {
       return (
         <View className="View-chord-Button">
-          <Button className='chord-Button unanswered' value={props.value} key={props.value} onPress={(e) => props.makeClicked(e)}>
-            <Text>{props.chordName}</Text>
-            <Text>Fontawesome X goes here</Text>
-          </Button>
+          <Button
+            className='chord-Button unanswered'
+            value={props.value}
+            key={props.value}
+            title={props.chordName}
+            onPress={() => props.makeClicked(props.value)}
+          />
+          <Text>Fontawesome X goes here</Text>
         </View>
       );
   };
@@ -788,8 +819,8 @@ class QuizUI extends React.Component {
     };
   };
 
-  makeClicked(e) {
-    this.clicked[e.target.value] = true;
+  makeClicked(buttonValue) {
+    this.clicked[buttonValue] = true;
     this.setState({clicked: this.clicked});
   };
 
@@ -863,7 +894,7 @@ class QuizUI extends React.Component {
 
   render() {
     return (
-      <View id='QuizUI-wrapper'>
+      <ScrollView id='QuizUI-wrapper'>
         <View id='possible-chords-wrapper'>
         {this.props.displayPossible &&
           <Text id='possible-chords-header'>Possible chords:</Text>
@@ -887,7 +918,7 @@ class QuizUI extends React.Component {
             )
           }
       </View>
-    </View>
+    </ScrollView>
     );
   };
 };
