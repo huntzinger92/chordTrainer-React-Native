@@ -147,7 +147,7 @@ class Test extends React.Component {
   toggleDisplay() {
     if (this.state.displaySettings) {
       //when going to quiz view (away from settings), play sound
-      this.playSound();
+      //this.playSound();
     };
     this.setState({
       displaySettings: !this.state.displaySettings
@@ -667,28 +667,33 @@ class Test extends React.Component {
         </View>
         </View>}
         {!this.state.displaySettings && <View id='quiz-wrapper'>
-          <Button
-            onPress={() => this.toggleDisplay()}
-            title='Configure Test'
-          />
-          <Button
-            onPress={() => {
-              this.playSound();
-            }}
-            title="Play"
-          />
-          <Button
-            onPress={() => {
-              this.handleStop();
-            }}
-            title="Stop"
-          />
-          <Button
-            onPress={() => {
-              this.handleGetNewChords();
-            }}
-            title="Get New Chords"
-          />
+          <View style={styles.soundButtonWrapper}>
+            <TouchableOpacity
+              onPress={() => {this.playSound();}}
+              title="Play"
+              style={styles.soundButton}
+            >
+              <Text style={styles.soundButtonText}>Play</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {this.handleStop()}}
+              style={styles.soundButton}
+            >
+              <Text style={styles.soundButtonText}>Stop</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {this.handleGetNewChords()}}
+              style={styles.soundButton}
+            >
+              <Text style={styles.soundButtonText}>Get New Chords</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.toggleDisplay()}
+              style={styles.soundButton}
+            >
+              <Text style={styles.soundButtonText}>Configure Test</Text>
+            </TouchableOpacity>
+          </View>
           <View id='QuizUI'>
             <QuizUI
               chords = {this.state.chords}
@@ -719,7 +724,7 @@ function CorrectButton(props) {
           onPress={() => props.makeClicked(props.value)}
           disabled
         >
-          <Text>{props.chordName}</Text>
+          <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -733,7 +738,7 @@ function CorrectButton(props) {
             value={props.value}
             key={props.value}
           >
-            <Text>{props.chordName}</Text>
+            <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
           </TouchableOpacity>
         </View>
       );
@@ -746,7 +751,7 @@ function CorrectButton(props) {
             key={props.value}
             onPress={() => props.makeClicked(props.value)}
           >
-            <Text>{props.chordName}</Text>
+            <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
           </TouchableOpacity>
         </View>
       );
@@ -766,7 +771,7 @@ function IncorrectButton(props) {
           value={props.value}
           key={props.value}
         >
-          <Text>{props.chordName}</Text>
+          <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -779,7 +784,7 @@ function IncorrectButton(props) {
             key={props.value}
             onPress={() => props.makeClicked(props.value)}
           >
-            <Text>{props.chordName}</Text>
+            <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
           </TouchableOpacity>
         </View>
       );
@@ -902,22 +907,21 @@ class QuizUI extends React.Component {
 
   render() {
     return (
-      <ScrollView id='QuizUI-wrapper'>
-        <View id='possible-chords-wrapper'>
+      <ScrollView style={styles.quizUIWrapper}>
         {this.props.displayPossible &&
-          <Text id='possible-chords-header'>Possible chords:</Text>
-        }
-        <View id='possible-chord-names'>
-        {this.props.displayPossible &&
-          this.possibleChordNames.map(function(a, index) {
-          return <Text className='possible-chords' key={index}>{a}</Text>
+        <View style={styles.possibleChordsWrapper}>
+          <Text style={styles.possibleChordsHeader}>Possible chords:</Text>
+        <View style={styles.possibleChordsNameWrapper}>
+        {this.possibleChordNames.map(function(a, index) {
+          return <Text style={styles.possibleChordsName} key={index}>{a}</Text>
           })}
         </View>
-      </View>
+      </View>}
       <View id='quiz-buttons'>
           {
             this.buttonArray.map(row =>
               <View style={styles.buttonRow}>
+                <Text style={styles.rowBullet}>{'\u2B24'}</Text>
                 {row.map(chord => chord.correct ?
                   <CorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName} /> :
                   <IncorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName}/>
@@ -937,25 +941,37 @@ const styles = StyleSheet.create({
   },
   buttonRow: {
     flexDirection: 'row',
+    marginLeft: 4,
+    marginRight: 7,
+    marginBottom: 10,
   },
   chordButtonContainer: {
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
   },
   chordUnanswered: {
     backgroundColor: 'skyblue',
+    justifyContent: 'center',
+    alignContent: 'center',
     height: 40,
   },
   chordCorrect: {
     backgroundColor: 'green',
-    textAlign: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
     height: 40,
   },
   chordIncorrect: {
     backgroundColor: 'red',
-    textAlign: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
     height: 40,
+  },
+  chordButtonLabel: {
+    textAlign: 'center',
   },
   engine: {
     position: 'absolute',
@@ -968,6 +984,41 @@ const styles = StyleSheet.create({
     marginTop: 32,
     paddingHorizontal: 24,
   },
+  possibleChordsWrapper: {
+    marginTop: 0,
+    marginLeft: 'auto',
+    marginBottom: 7,
+    marginRight: 'auto',
+    paddingTop: 3,
+    paddingBottom: 5,
+    width: 360,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  possibleChordsHeader: {
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  possibleChordsNameWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    margin: 'auto',
+  },
+  possibleChordsName: {
+    textAlign: 'center',
+    marginLeft: 8,
+    fontSize: 18,
+  },
+  quizUIWrapper: {
+    marginTop: 0,
+  },
+  rowBullet: {
+    alignSelf: 'center',
+    marginRight: 3,
+    fontSize: 9,
+    color: '#3d3d3d'
+  },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
@@ -978,6 +1029,27 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     color: Colors.dark,
+  },
+  soundButton: {
+    backgroundColor: 'white',
+    color: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+    height: 40,
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    padding: 5,
+    margin: 4,
+    elevation: 5,
+  },
+  soundButtonText: {
+    textAlign: 'center',
+  },
+  soundButtonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    margin: 15,
   },
   highlight: {
     fontWeight: '700',
