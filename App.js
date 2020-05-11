@@ -8,6 +8,7 @@ import {Audio} from 'expo-av';
 import {
   SafeAreaView,
   Button,
+  TouchableOpacity,
   StyleSheet,
   ScrollView,
   View,
@@ -709,43 +710,44 @@ class Test extends React.Component {
 function CorrectButton(props) {
   if (Number(props.value) === 0) {
     return (
-      <View className="View-chord-Button">
-        <Button
-          className='chord-Button correct'
+      <View style={styles.chordButtonContainer}>
+        <TouchableOpacity
           id='given-one-chord'
+          style={styles.chordCorrect}
           value={props.value}
           key={props.value}
           onPress={() => props.makeClicked(props.value)}
-          title={props.chordName}
           disabled
-        />
-          <Text>Replace this item with fontAwesome check tag</Text>
+        >
+          <Text>{props.chordName}</Text>
+        </TouchableOpacity>
       </View>
     );
   } else {
     if (props.clicked) {
       return (
-        <View className="View-chord-Button" onPress={() => props.makeClicked(props.value)}>
-          <Button
-            className='chord-Button correct'
+        <View style={styles.chordButtonContainer} onPress={() => props.makeClicked(props.value)}>
+          <TouchableOpacity
+            style={styles.chordCorrect}
+            color='green'
             value={props.value}
             key={props.value}
-            title={props.chordName}
-          />
-          <Text>Replace this item with fontAwesome check tag</Text>
+          >
+            <Text>{props.chordName}</Text>
+          </TouchableOpacity>
         </View>
       );
     } else {
       return (
-        <View className="View-chord-Button">
-          <Button
-            className='chord-Button unanswered'
+        <View style={styles.chordButtonContainer}>
+          <TouchableOpacity
+            style={styles.chordUnanswered}
             value={props.value}
             key={props.value}
             onPress={() => props.makeClicked(props.value)}
-            title={props.chordName}
-          />
-          <Text>Replace this item with fontAwesome check tag</Text>
+          >
+            <Text>{props.chordName}</Text>
+          </TouchableOpacity>
         </View>
       );
     };
@@ -757,28 +759,28 @@ function CorrectButton(props) {
 function IncorrectButton(props) {
   if (props.clicked) {
     return (
-      <View className="View-chord-Button">
-        <Button
-          className='chord-Button incorrect'
+      <View style={styles.chordButtonContainer}>
+        <TouchableOpacity
+          style={styles.chordIncorrect}
+          color='red'
           value={props.value}
           key={props.value}
-          title={props.chordName}
-          onPress={() => props.makeClicked(props.value)}
-        />
-        <Text>Fontawesome X goes here</Text>
+        >
+          <Text>{props.chordName}</Text>
+        </TouchableOpacity>
       </View>
     );
   } else {
       return (
-        <View className="View-chord-Button">
-          <Button
-            className='chord-Button unanswered'
+        <View style={styles.chordButtonContainer}>
+          <TouchableOpacity
+            style={styles.chordUnanswered}
             value={props.value}
             key={props.value}
-            title={props.chordName}
             onPress={() => props.makeClicked(props.value)}
-          />
-          <Text>Fontawesome X goes here</Text>
+          >
+            <Text>{props.chordName}</Text>
+          </TouchableOpacity>
         </View>
       );
   };
@@ -841,10 +843,14 @@ class QuizUI extends React.Component {
     });
 
     this.possibleChordNames = this.newAllowedList.map(function(a) {
+      console.log('generating new incorrect button names...');
+      console.log(intToChordName(a));
       return intToChordName(a);
     });
 
     this.actualChordNames = this.props.chords.map(function(a) {
+      console.log('generating new correct button names...');
+      console.log(intToChordName(a));
       return intToChordName(a);
     });
   };
@@ -857,6 +863,7 @@ class QuizUI extends React.Component {
         var tempButtonList = []; //will hold a list of objects where each object is a button with an integer value representing position and two props, chordName, and a boolean indicating whether or not answer is correct, and value, used for element key and for style reference
 
         this.clicked[i] = false;
+        console.log('correct chord button name: ' + actualChordNames[i]);
         tempButtonList.push({chordName: actualChordNames[i], correct: true, value: (i)}); //generate correct answers, value should always be single digit
 
         var answerlessAllowed = this.possibleChordNames.filter(function(a) { //create list without correct answer from all possible chords to generate wrong answers from
@@ -875,6 +882,7 @@ class QuizUI extends React.Component {
           for (var j = 0; j < incorrectAmount; j++) { //generate incorrect answers, only after first row (which will be single button displaying one chord)
             this.clicked[10 * i + j] = false;
             random = Math.floor(Math.random() * answerlessAllowed.length); //index of random chord
+            console.log('incorrect button chordname: ' + answerlessAllowed[random]);
             tempButtonList.push({chordName: answerlessAllowed[random], correct: false, value: (10 * i + j)});
             answerlessAllowed.splice(random, 1);
           };
@@ -909,7 +917,7 @@ class QuizUI extends React.Component {
       <View id='quiz-buttons'>
           {
             this.buttonArray.map(row =>
-              <View className='button-row'>
+              <View style={styles.buttonRow}>
                 {row.map(chord => chord.correct ?
                   <CorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName} /> :
                   <IncorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName}/>
@@ -926,6 +934,28 @@ class QuizUI extends React.Component {
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+  },
+  chordButtonContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  chordUnanswered: {
+    backgroundColor: 'skyblue',
+    height: 40,
+  },
+  chordCorrect: {
+    backgroundColor: 'green',
+    textAlign: 'center',
+    height: 40,
+  },
+  chordIncorrect: {
+    backgroundColor: 'red',
+    textAlign: 'center',
+    height: 40,
   },
   engine: {
     position: 'absolute',

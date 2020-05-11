@@ -1,6 +1,8 @@
 //receives chord object, outputs formatted string for quality
 export function intToChordName(chord) {
   //chord object has to have props identical to the ones in soundbank
+  //console.log('intToChordName called with:');
+  //console.log(chord);
   var name = '';
   if (chord.name === 1) {
     name = 'i';
@@ -33,5 +35,6 @@ export function intToChordName(chord) {
   } else if (chord.quality === 'fully diminished 7th') {
     name = name + '°7';
   };
+  //console.log('intToChordName returning: ' + name);
   return name;
 };
