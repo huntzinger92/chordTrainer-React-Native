@@ -28,42 +28,70 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const App: () => React$Node = (props) => {
-  //three possible options: 'home', 'explanation', 'test'
+  //four possible options: 'home', 'explanation', 'test', 'practicalTest'
   const [displayComponent, setDisplayComponent] = useState('home');
   return (
-    <>
+    <View style={styles.appWrapper}>
       <StatusBar barStyle="dark-content" />
       {displayComponent === 'home' &&
-        <View>
-          <Button
+        <View style={styles.homeWrapper}>
+          <View style={styles.titleWrapper}>
+            <Text style={styles.titleHeader}>A Comprehensive Chord Progression Ear Trainer</Text>
+          </View>
+          <TouchableOpacity
             onPress={() => setDisplayComponent('explanation')}
-            title='New to chord progressions?'
-          />
-          <Button
+            style={styles.navigationButtons}
+          >
+            <Text style={styles.navigationText}>New to chord progressions?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
-            title='Take the test'
-          />
+            style={styles.navigationButtons}
+          >
+            <Text style={styles.navigationText}>Take the test</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setDisplayComponent('practicalTest')}
+            style={styles.navigationButtons}
+          >
+            <Text style={styles.navigationText}>Practical Examples</Text>
+          </TouchableOpacity>
         </View>
       }
       {displayComponent === 'explanation' &&
         <View>
-          <Button
+          <TouchableOpacity
             onPress={() => setDisplayComponent('home')}
-            title='Back icon goes here'
-          />
+            style={styles.navigationButtons}
+          >
+            <Text style={styles.navigationText}>Back icon goes here</Text>
+          </TouchableOpacity>
           <Text>Functional Explanation Component Goes Here</Text>
         </View>
       }
       {displayComponent === 'test' &&
         <View>
-          <Button
+          <TouchableOpacity
             onPress={() => setDisplayComponent('home')}
-            title='Back icon goes here'
-          />
+            style={styles.navigationButtons}
+          >
+            <Text style={styles.navigationText}>Back icon goes here</Text>
+          </TouchableOpacity>
           <Test/>
         </View>
       }
-    </>
+      {displayComponent === 'practicalTest' &&
+        <View>
+          <TouchableOpacity
+            onPress={() => setDisplayComponent('home')}
+            style={styles.navigationButtons}
+          >
+            <Text style={styles.navigationText}>Back icon goes here</Text>
+          </TouchableOpacity>
+          <PracticalTest/>
+        </View>
+      }
+    </View>
   );
 };
 
@@ -504,163 +532,164 @@ class Test extends React.Component {
     return (
       <ScrollView>
         {this.state.displaySettings && <View id='settings-wrapper'>
-        <Button
+        <TouchableOpacity
           onPress={() => this.toggleDisplay()}
-          title="Back to the test"
-        />
-        <Picker
-          className='settings-dropdown'
-          id='type-selection'
-          onValueChange={(itemValue, itemIndex) => this.handleTypeChange(itemValue)}
-          selectedValue={this.state.modalTitle}
+          style={styles.navigationButtons}
         >
-          <Picker.Item label="Major" value={0} />
-          <Picker.Item label="Minor" value={2.1} />
-          <Picker.Item label="Dorian" value={6} />
-          <Picker.Item label="Phrygian" value={5} />
-          <Picker.Item label="Lydian" value={4} />
-          <Picker.Item label="Mixolydian" value={3} />
-          <Picker.Item label="Aeolian" value={2} />
-          <Picker.Item label="Locrian" value={1} />
-        </Picker>
-        <Picker
-          className='settings-dropdown'
-          id='amount-selection'
-          onValueChange={(itemValue, itemIndex) => this.handleAmountChange(itemValue)}
-          selectedValue={this.state.amount}
-        >
-          <Picker.Item label="2" value={2} />
-          <Picker.Item label="3" value={3} />
-          <Picker.Item label="4" value={4} />
-          <Picker.Item label="5" value={5} />
-          <Picker.Item label="6" value={6} />
-          <Picker.Item label="7" value={7} />
-          <Picker.Item label="8" value={8} />
-        </Picker>
-        <View className='checkbox'>
-          <Text classnName='settings-text'>Allow Transpositions</Text>
+          <Text style={styles.navigationText}>Back to the test</Text>
+        </TouchableOpacity>
+        <View style={styles.settingsDropdown}>
+          <Picker
+            onValueChange={(itemValue, itemIndex) => this.handleTypeChange(itemValue)}
+            selectedValue={this.state.modalTitle}
+          >
+            <Picker.Item label="Major" value={0} />
+            <Picker.Item label="Minor" value={2.1} />
+            <Picker.Item label="Dorian" value={6} />
+            <Picker.Item label="Phrygian" value={5} />
+            <Picker.Item label="Lydian" value={4} />
+            <Picker.Item label="Mixolydian" value={3} />
+            <Picker.Item label="Aeolian" value={2} />
+            <Picker.Item label="Locrian" value={1} />
+          </Picker>
+        </View>
+        <View style={styles.settingsDropdown}>
+          <Picker
+            onValueChange={(itemValue, itemIndex) => this.handleAmountChange(itemValue)}
+            selectedValue={this.state.amount}
+          >
+            <Picker.Item label="2" value={2} />
+            <Picker.Item label="3" value={3} />
+            <Picker.Item label="4" value={4} />
+            <Picker.Item label="5" value={5} />
+            <Picker.Item label="6" value={6} />
+            <Picker.Item label="7" value={7} />
+            <Picker.Item label="8" value={8} />
+          </Picker>
+        </View>
+        <View style={styles.checkbox}>
           <CheckBox
-            id="allow-transpositions"
             onPress={() => this.handleTranspositions()}
             checked={this.state.transpositions}
+            style={styles.settingsCheckbox}
           />
+          <Text style={styles.settingsText}>Allow Transpositions</Text>
         </View>
-        <View className='checkbox'>
-          <Text classnName='settings-text'>Allow Inversions</Text>
+        <View style={styles.checkbox}>
           <CheckBox
-            id="allow-inversions"
             onPress={() => this.handleInversions()}
             checked={this.state.inversions}
+            style={styles.settingsCheckbox}
           />
+          <Text style={styles.settingsText}>Allow Inversions</Text>
         </View>
-        <View className='checkbox'>
-          <Text classnName='settings-text'>Allow 7th Chords</Text>
+        <View style={styles.checkbox}>
           <CheckBox
-            id="use-seventh-chords"
             onPress={() => this.toggleChordClass()}
             checked={this.state.chordClass === 'seventh'}
+            style={styles.settingsCheckbox}
           />
+          <Text style={styles.settingsText}>Allow 7th Chords</Text>
         </View>
-        <View className='checkbox'>
-          <Text classnName='settings-text'>Loop Playback</Text>
+        <View style={styles.checkbox}>
           <CheckBox
-            id="loop"
             onPress={() => this.handleLoop()}
             checked={this.state.loop}
+            style={styles.settingsCheckbox}
           />
+          <Text style={styles.settingsText}>Loop Playback</Text>
         </View>
-        <View className='checkbox'>
-          <Text classnName='settings-text'>Display All Possible Chords</Text>
+        <View style={styles.checkbox}>
           <CheckBox
-            id="display-possible"
             onPress={() => this.handleDisplayPossible()}
             checked={this.state.displayPossible}
+            style={styles.settingsCheckbox}
           />
+          <Text style={styles.settingsText}>Display All Possible Chords</Text>
         </View>
-        <View id='allowed-wrapper'>
+        <View style={styles.allowedWrapper}>
           <Text id='allowed-header' className='settings-label'>Allowed Chords:</Text>
           <View id='allowed-selections'>
-            <View className='allowed-checkbox-wrapper' id='View-allowed-selection-1'>
-              <View id='allowed-selection-1' className='allowed-label'>
+            <View style={styles.chordRow1}>
+              <View style={styles.checkboxWrapper}>
                 <CheckBox
                   className='allowed-checkbox'
                   type='checkbox'
                   disabled
                   checked
+                  style={styles.chordCheckbox}
                 />
-                <Text className='allowed-Text'>1</Text>
+                <Text style={styles.chordCheckboxText}>1</Text>
               </View>
             </View>
-            <View className='allowed-checkbox-wrapper' id='View-allowed-selection-2'>
-              <View id='allowed-selection-2' className='allowed-label'>
+            <View style={styles.chordRow2}>
+              <View style={styles.checkboxWrapper}>
                 <CheckBox
                   className='allowed-checkbox'
                   type='checkbox'
                   onPress={() => this.handleChordAllowedChange(2, this.state.allowedList.includes(2))}
                   id='allowed-selection-2'
                   checked={this.state.allowedList.includes(2)}
+                  style={styles.chordCheckbox}
                 />
-                <Text className='allowed-Text'>2</Text>
+                <Text style={styles.chordCheckboxText}>2</Text>
               </View>
-            </View>
-            <View className='allowed-checkbox-wrapper' id='View-allowed-selection-3'>
-              <View id='allowed-selection-3' className='allowed-label'>
+              <View style={styles.checkboxWrapper}>
                 <CheckBox
                   className='allowed-checkbox'
                   type='checkbox'
                   onPress={() => this.handleChordAllowedChange(3, this.state.allowedList.includes(3))}
                   id='allowed-selection-3'
                   checked={this.state.allowedList.includes(3)}
+                  style={styles.chordCheckbox}
                 />
-                <Text className='allowed-Text'>3</Text>
+                <Text style={styles.chordCheckboxText}>3</Text>
               </View>
-            </View>
-            <View className='allowed-checkbox-wrapper' id='View-allowed-selection-4'>
-              <View id='allowed-selection-4' className='allowed-label'>
+              <View style={styles.checkboxWrapper}>
                 <CheckBox
                   className='allowed-checkbox'
                   type='checkbox'
                   onPress={() => this.handleChordAllowedChange(4, this.state.allowedList.includes(4))}
                   id='allowed-selection-4'
                   checked={this.state.allowedList.includes(4)}
+                  style={styles.chordCheckbox}
                 />
-                <Text className='allowed-Text'>4</Text>
+                <Text style={styles.chordCheckboxText}>4</Text>
               </View>
             </View>
-            <View className='allowed-checkbox-wrapper' id='View-allowed-selection-5'>
-              <View id='allowed-selection-5' className='allowed-label'>
+            <View style={styles.chordRow3}>
+              <View style={styles.checkboxWrapper}>
                 <CheckBox
                   className='allowed-checkbox'
                   type='checkbox'
                   onPress={() => this.handleChordAllowedChange(5, this.state.allowedList.includes(5))}
                   id='allowed-selection-5'
                   checked={this.state.allowedList.includes(5)}
+                  style={styles.chordCheckbox}
                 />
-                <Text className='allowed-Text'>5</Text>
+                <Text style={styles.chordCheckboxText}>5</Text>
               </View>
-            </View>
-            <View className='allowed-checkbox-wrapper' id='View-allowed-selection-6'>
-              <View id='allowed-selection-6' className='allowed-label'>
+              <View style={styles.checkboxWrapper}>
                 <CheckBox
                   className='allowed-checkbox'
                   type='checkbox'
                   onPress={() => this.handleChordAllowedChange(6, this.state.allowedList.includes(6))}
                   id='allowed-selection-6'
                   checked={this.state.allowedList.includes(6)}
+                  style={styles.chordCheckbox}
                 />
-                <Text className='allowed-Text'>6</Text>
+                <Text style={styles.chordCheckboxText}>6</Text>
               </View>
-            </View>
-            <View className='allowed-checkbox-wrapper' id='View-allowed-selection-7'>
-              <View id='allowed-selection-7' className='allowed-label'>
+              <View style={styles.checkboxWrapper}>
                 <CheckBox
                   className='allowed-checkbox'
                   type='checkbox'
                   onPress={() => this.handleChordAllowedChange(7, this.state.allowedList.includes(7))}
                   id='allowed-selection-7'
                   checked={this.state.allowedList.includes(7)}
+                  style={styles.chordCheckbox}
                 />
-                <Text className='allowed-Text'>7</Text>
+                <Text style={styles.chordCheckboxText}>7</Text>
               </View>
             </View>
           </View>
@@ -711,7 +740,6 @@ class Test extends React.Component {
   };
 };
 
-//<FontAwesomeIcon icon={faCheck} className='chord-icon check' style={{opacity: 0}}/>
 function CorrectButton(props) {
   if (Number(props.value) === 0) {
     return (
@@ -760,7 +788,6 @@ function CorrectButton(props) {
 };
 
 //will generate a clickable Button with chord name displayed, will become red and show an x when clicked
-//<FontAwesomeIcon icon={faTimes} className='chord-icon x' style={{opacity: 0}}/>
 function IncorrectButton(props) {
   if (props.clicked) {
     return (
@@ -935,9 +962,31 @@ class QuizUI extends React.Component {
   };
 };
 
+class PracticalTest extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      test: ''
+    };
+  };
+  render() {
+    return (
+      <Text>Practical Portion goes here</Text>
+    );
+  };
+};
+
 const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
+  },
+  allowedWrapper: {
+    marginLeft: 50,
+    fontSize: 20,
+  },
+  appWrapper: {
+    backgroundColor: '#ebebff',
+    minHeight: '100%',
   },
   buttonRow: {
     flexDirection: 'row',
@@ -945,37 +994,65 @@ const styles = StyleSheet.create({
     marginRight: 7,
     marginBottom: 10,
   },
+  checkbox: {
+    marginLeft: 50,
+    flexDirection: 'row',
+  },
+  checkboxWrapper: {
+    flexDirection: 'row',
+    fontSize: 20,
+  },
+  chordCheckbox: {
+    fontSize: 40,
+  },
+  chordCheckboxText: {
+    marginLeft: 15,
+    fontSize: 20,
+  },
   chordButtonContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
     borderRadius: 5,
   },
   chordUnanswered: {
     backgroundColor: 'skyblue',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
     height: 40,
   },
   chordCorrect: {
     backgroundColor: 'green',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
     height: 40,
   },
   chordIncorrect: {
     backgroundColor: 'red',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
     height: 40,
   },
   chordButtonLabel: {
     textAlign: 'center',
   },
+  chordRow1: {
+    flexDirection: 'row',
+  },
+  chordRow2: {
+    flexDirection: 'row',
+  },
+  chordRow3: {
+    flexDirection: 'row',
+  },
   engine: {
     position: 'absolute',
     right: 0,
+  },
+  homeWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   body: {
     backgroundColor: Colors.white,
@@ -983,6 +1060,22 @@ const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
+  },
+  navigationButtons: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#56f07b',
+    marginBottom: 18,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 330,
+    height: 60,
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  navigationText: {
+    textAlign: 'center',
+    fontSize: 24,
   },
   possibleChordsWrapper: {
     marginTop: 0,
@@ -1002,7 +1095,7 @@ const styles = StyleSheet.create({
   possibleChordsNameWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
     margin: 'auto',
   },
   possibleChordsName: {
@@ -1030,6 +1123,17 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     color: Colors.dark,
   },
+  settingsText: {
+    fontSize: 20,
+  },
+  settingsDropdown: {
+    marginLeft: 50,
+    marginRight: 50,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: 'white',
+  },
   soundButton: {
     backgroundColor: 'white',
     color: 'black',
@@ -1037,7 +1141,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 40,
     flex: 1,
-    alignContent: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
     padding: 5,
     margin: 4,
@@ -1050,6 +1154,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     margin: 15,
+  },
+  titleWrapper: {
+    marginTop: 40,
+    marginBottom: 120,
+    marginLeft: 20,
+    marginRight: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    padding: 8,
+    backgroundColor: '#fff7fe',
+  },
+  titleHeader: {
+    fontSize: 32,
+    textAlign: 'center',
   },
   highlight: {
     fontWeight: '700',
