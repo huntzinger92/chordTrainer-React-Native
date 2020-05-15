@@ -12,6 +12,13 @@ import {styles} from './styles.js';
 
 import {QuizUI} from './quizUIComponent.js';
 
+import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
+//import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+//import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+
 import {
   SafeAreaView,
   Button,
@@ -473,10 +480,12 @@ export class Test extends React.Component {
         {this.state.displaySettings && <View style={styles.settingsWrapper}>
         <TouchableOpacity
           onPress={() => this.toggleDisplay()}
-          style={styles.navigationButtons}
+          style={styles.backButton}
         >
-          <Text style={styles.navigationText}>Back to the test</Text>
+          <Ionicons name="md-arrow-round-back" size={36} color="black" />
+          <Text style={styles.backButtonText}>Back to the Test</Text>
         </TouchableOpacity>
+        <View style={styles.dropdownWrapper}>
         <View style={styles.settingsDropdown}>
           <Text style={styles.dropdownHeader}>Key/Mode:</Text>
           <View style={styles.pickerWrapper}>
@@ -514,56 +523,7 @@ export class Test extends React.Component {
             </Picker>
           </View>
         </View>
-        <TouchableOpacity style={[styles.settingsSlider, styles.firstSettingsSlider]} onPress={() => this.handleTranspositions()}>
-          <ToggleSwitch
-            isOn={this.state.transpositions}
-            onColor='#404040'
-            offColor='#d4d4d4'
-            size='medium'
-            onToggle={() => this.handleTranspositions()}
-          />
-          <Text style={{fontSize: 20, marginLeft: 7}}>Allow Transpositions</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingsSlider} onPress={() => this.handleInversions()}>
-          <ToggleSwitch
-            isOn={this.state.inversions}
-            onColor='#404040'
-            offColor='#d4d4d4'
-            size='medium'
-            onToggle={() => this.handleInversions()}
-          />
-          <Text style={{fontSize: 20, marginLeft: 7}}>Allow Inversions</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingsSlider} onPress={() => this.toggleChordClass()}>
-          <ToggleSwitch
-            isOn={this.state.chordClass === 'seventh'}
-            onColor='#404040'
-            offColor='#d4d4d4'
-            size='medium'
-            onToggle={() => this.toggleChordClass()}
-          />
-          <Text style={{fontSize: 20, marginLeft: 7}}>Allow 7th Chords</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingsSlider} onPress={() => this.handleLoop()}>
-          <ToggleSwitch
-            isOn={this.state.loop}
-            onColor='#404040'
-            offColor='#d4d4d4'
-            size='medium'
-            onToggle={() => this.handleLoop()}
-          />
-          <Text style={{fontSize: 20, marginLeft: 7}}>Loop Playback</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.settingsSlider} onPress={() => this.handleDisplayPossible()}>
-          <ToggleSwitch
-            isOn={this.state.displayPossible}
-            onColor='#404040'
-            offColor='#d4d4d4'
-            size='medium'
-            onToggle={() => this.handleDisplayPossible()}
-          />
-          <Text style={{fontSize: 20, marginLeft: 7}}>Display All Possible Chords</Text>
-        </TouchableOpacity>
+        </View>
         <View style={styles.allowedWrapper}>
           <Text style={styles.allowedHeader}>Allowed Chords:</Text>
           <View style={styles.allowedButtons}>
@@ -631,33 +591,88 @@ export class Test extends React.Component {
             </View>
           </View>
         </View>
+        <TouchableOpacity style={[styles.settingsSliderView, styles.firstSettingsSlider]} onPress={() => this.handleTranspositions()}>
+          <ToggleSwitch
+            isOn={this.state.transpositions}
+            onColor='#404040'
+            offColor='#d4d4d4'
+            size='medium'
+            onToggle={() => this.handleTranspositions()}
+            style={styles.settingsSlider}
+          />
+          <Text style={{fontSize: 20, marginLeft: 7}}>Allow Transpositions</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingsSliderView} onPress={() => this.handleInversions()}>
+          <ToggleSwitch
+            isOn={this.state.inversions}
+            onColor='#404040'
+            offColor='#d4d4d4'
+            size='medium'
+            onToggle={() => this.handleInversions()}
+            style={styles.settingsSlider}
+          />
+          <Text style={{fontSize: 20, marginLeft: 7}}>Allow Inversions</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingsSliderView} onPress={() => this.toggleChordClass()}>
+          <ToggleSwitch
+            isOn={this.state.chordClass === 'seventh'}
+            onColor='#404040'
+            offColor='#d4d4d4'
+            size='medium'
+            onToggle={() => this.toggleChordClass()}
+            style={styles.settingsSlider}
+          />
+          <Text style={{fontSize: 20, marginLeft: 7}}>Allow 7th Chords</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingsSliderView} onPress={() => this.handleLoop()}>
+          <ToggleSwitch
+            isOn={this.state.loop}
+            onColor='#404040'
+            offColor='#d4d4d4'
+            size='medium'
+            onToggle={() => this.handleLoop()}
+            style={styles.settingsSlider}
+          />
+          <Text style={{fontSize: 20, marginLeft: 7}}>Loop Playback</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.settingsSliderView} onPress={() => this.handleDisplayPossible()}>
+          <ToggleSwitch
+            isOn={this.state.displayPossible}
+            onColor='#404040'
+            offColor='#d4d4d4'
+            size='medium'
+            onToggle={() => this.handleDisplayPossible()}
+            style={styles.settingsSlider}
+          />
+          <Text style={{fontSize: 20, marginLeft: 5}}>Display All Possible Chords</Text>
+        </TouchableOpacity>
+
         </View>}
         {!this.state.displaySettings && <View id='quiz-wrapper'>
           <View style={styles.soundButtonWrapper}>
             <TouchableOpacity
               onPress={() => {this.playSound();}}
-              title="Play"
               style={styles.soundButton}
             >
-              <Text style={styles.soundButtonText}>Play</Text>
+              <AntDesign name='caretright' size={24}/>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {this.handleStop()}}
               style={styles.soundButton}
             >
-              <Text style={styles.soundButtonText}>Stop</Text>
+              <FontAwesome name="stop" size={22} color="black" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {this.handleGetNewChords()}}
               style={styles.soundButton}
             >
-              <Text style={styles.soundButtonText}>Get New Chords</Text>
+              <FontAwesome name="refresh" size={24} color="black" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.toggleDisplay()}
               style={styles.soundButton}
             >
-              <Text style={styles.soundButtonText}>Configure Test</Text>
+              <Ionicons name="md-settings" size={28} color="black" />
             </TouchableOpacity>
           </View>
           <View id='QuizUI'>

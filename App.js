@@ -1,19 +1,15 @@
 import React, {useState} from 'react';
-//soundbank is a constant list of chord objects, to be treated as immutable
-import {soundbank} from './soundbank.js';
-//function that receives chord object as parameter and, depending on its prop values, returns the chord in notation, i.e. (Imaj7, iv, V7, etc.)
-import {intToChordName} from './int-to-chord-name.js';
-//expo av library
-import {Audio} from 'expo-av';
-//toggle sliders (replacing checkboxes from web app - checkboxes are difficult to style)
-import ToggleSwitch from 'toggle-switch-react-native';
-
+//icons
+import { FontAwesome } from '@expo/vector-icons';
+//custon components
 import {Test} from './testComponent.js';
 import {PracticalTest} from './practicalTestComponent.js';
 import {Explanation} from './explanationComponent.js';
 
+//stylesheet
 import {styles} from './styles.js';
 
+//regular components
 import {
   SafeAreaView,
   Button,
@@ -42,22 +38,28 @@ const App: () => React$Node = (props) => {
   return (
     <ScrollView style={styles.appWrapper}>
       <StatusBar barStyle="dark-content" />
+      <View style={styles.titleWrapper}>
+        {displayComponent !== 'home' && <TouchableOpacity
+          onPress={() => setDisplayComponent('home')}
+          style={styles.homeButton}
+        >
+          <FontAwesome name="home" size={38} color="black"/>
+        </TouchableOpacity>}
+        <Text style={[styles.titleHeader, displayComponent !== 'home' ? {marginLeft: 8, marginTop: 8} : {fontSize: 28}]}>Chord Progression Ear Trainer</Text>
+      </View>
       {displayComponent === 'home' &&
         <View style={styles.homeWrapper}>
-          <View style={styles.titleWrapper}>
-            <Text style={styles.titleHeader}>A Comprehensive Chord Progression Ear Trainer</Text>
-          </View>
           <TouchableOpacity
             onPress={() => setDisplayComponent('explanation')}
-            style={styles.navigationButtons}
+            style={[styles.navigationButtons, {marginTop: 40}]}
           >
-            <Text style={styles.navigationText}>New to chord progressions?</Text>
+            <Text style={styles.navigationText}>Review the Theory</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
             style={styles.navigationButtons}
           >
-            <Text style={styles.navigationText}>Take the test</Text>
+            <Text style={styles.navigationText}>Take the Test</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setDisplayComponent('practicalTest')}
@@ -69,16 +71,10 @@ const App: () => React$Node = (props) => {
       }
       {displayComponent === 'explanation' &&
         <View>
-          <TouchableOpacity
-            onPress={() => setDisplayComponent('home')}
-            style={styles.navigationButtons}
-          >
-            <Text style={styles.navigationText}>Back icon goes here</Text>
-          </TouchableOpacity>
           <Explanation/>
           <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
-            style={styles.navigationButtons}
+            style={[styles.navigationButtons, {width: 185, marginTop: 7}]}
           >
             <Text style={styles.navigationText}>Try the quiz!</Text>
           </TouchableOpacity>
@@ -86,23 +82,11 @@ const App: () => React$Node = (props) => {
       }
       {displayComponent === 'test' &&
         <View>
-          <TouchableOpacity
-            onPress={() => setDisplayComponent('home')}
-            style={styles.navigationButtons}
-          >
-            <Text style={styles.navigationText}>Back icon goes here</Text>
-          </TouchableOpacity>
           <Test/>
         </View>
       }
       {displayComponent === 'practicalTest' &&
         <View>
-          <TouchableOpacity
-            onPress={() => setDisplayComponent('home')}
-            style={styles.navigationButtons}
-          >
-            <Text style={styles.navigationText}>Back icon goes here</Text>
-          </TouchableOpacity>
           <PracticalTest/>
         </View>
       }
