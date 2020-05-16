@@ -10,6 +10,9 @@ import ToggleSwitch from 'toggle-switch-react-native';
 
 import {styles} from './styles.js';
 
+import {CorrectButton} from './correctButtonComponent.js';
+import {IncorrectButton} from './incorrectButtonComponent.js';
+
 import {
   SafeAreaView,
   Button,
@@ -175,80 +178,4 @@ export class QuizUI extends React.Component {
   };
 };
 
-function CorrectButton(props) {
-  if (Number(props.value) === 0) {
-    return (
-      <View style={styles.chordButtonContainer}>
-        <TouchableOpacity
-          id='given-one-chord'
-          style={styles.chordCorrect}
-          value={props.value}
-          key={props.value}
-          onPress={() => props.makeClicked(props.value)}
-          disabled
-        >
-          <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  } else {
-    if (props.clicked) {
-      return (
-        <View style={styles.chordButtonContainer} onPress={() => props.makeClicked(props.value)}>
-          <TouchableOpacity
-            style={styles.chordCorrect}
-            color='green'
-            value={props.value}
-            key={props.value}
-          >
-            <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.chordButtonContainer}>
-          <TouchableOpacity
-            style={styles.chordUnanswered}
-            value={props.value}
-            key={props.value}
-            onPress={() => props.makeClicked(props.value)}
-          >
-            <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
-          </TouchableOpacity>
-        </View>
-      );
-    };
-  };
-};
-
 //will generate a clickable Button with chord name displayed, will become red when clicked
-function IncorrectButton(props) {
-  if (props.clicked) {
-    return (
-      <View style={styles.chordButtonContainer}>
-        <TouchableOpacity
-          style={styles.chordIncorrect}
-          color='red'
-          value={props.value}
-          key={props.value}
-        >
-          <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  } else {
-      return (
-        <View style={styles.chordButtonContainer}>
-          <TouchableOpacity
-            style={styles.chordUnanswered}
-            value={props.value}
-            key={props.value}
-            onPress={() => props.makeClicked(props.value)}
-          >
-            <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
-          </TouchableOpacity>
-        </View>
-      );
-  };
-};

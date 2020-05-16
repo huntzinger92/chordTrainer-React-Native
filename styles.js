@@ -378,7 +378,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   titleHeader: {
-    fontSize: 26,
+    fontSize: 23,
+    fontFamily: 'serif',
     color: 'black',
     marginTop: 3,
     marginBottom: 7,
