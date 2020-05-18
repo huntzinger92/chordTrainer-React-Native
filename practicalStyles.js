@@ -1,6 +1,15 @@
 import {StyleSheet} from 'react-native';
 
 export const practicalStyles = StyleSheet.create({
+  buttonAreaWrapper: {
+    marginTop: 15,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    marginLeft: 4,
+    marginRight: 7,
+    marginBottom: 12,
+  },
   modeDropdownWrapper: {
     width: 200,
     height: 55,
@@ -30,5 +39,11 @@ export const practicalStyles = StyleSheet.create({
     padding: 5,
     margin: 4,
     elevation: 7,
-  }
+  },
+  rowBullet: {
+    alignSelf: 'center',
+    marginRight: 3,
+    fontSize: 9,
+    color: '#3d3d3d'
+  },
 });
