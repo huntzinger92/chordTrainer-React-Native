@@ -64,6 +64,10 @@ export class QuizUI extends React.Component {
     };
   };
 
+  componentWillMount() {
+    this.cleanChordNameData();
+  };
+
   makeClicked(buttonValue) {
     this.clicked[buttonValue] = true;
     this.setState({clicked: this.clicked});

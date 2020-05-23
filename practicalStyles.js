@@ -1,6 +1,21 @@
 import {StyleSheet} from 'react-native';
 
 export const practicalStyles = StyleSheet.create({
+  allPossibleWrapper: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 5,
+    padding: 10,
+  },
+  possibleChordsWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+  },
   buttonAreaWrapper: {
     marginTop: 15,
   },
@@ -9,6 +24,17 @@ export const practicalStyles = StyleSheet.create({
     marginLeft: 4,
     marginRight: 7,
     marginBottom: 12,
+  },
+  chordNameButton: {
+    marginLeft: 4,
+    marginRight: 4,
+    marginBottom: 7,
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignContent: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
   },
   modeDropdownWrapper: {
     width: 200,
@@ -39,7 +65,7 @@ export const practicalStyles = StyleSheet.create({
   oneChordLabel: {
     marginLeft: 'auto',
     marginRight: 7,
-    fontSize: 24,
+    fontSize: 21,
     alignSelf: 'center',
   },
   settingsAndSoundRow: {
