@@ -35,6 +35,7 @@ export class PracticalTest extends React.Component {
       stop: false, //
       init: true, //if init is true, get chords and butttons, else, just play sound,
       clicked: {}, //object with boolean for each button element's clicked state (key is trivial integer value unique to button), passed to button components as prop
+      buttonArray: [],
     };
     this.handleModeChange = this.handleModeChange.bind(this);
     this.makeClicked = this.makeClicked.bind(this);
@@ -53,7 +54,7 @@ export class PracticalTest extends React.Component {
     //array of correct chords used to generate right answers
     this.correctAnswers = [];
     //array of button information, each button row is a sublist containing objects of information for each button
-    this.buttonArray = [];
+    //this.buttonArray = [];
     //holds the playback sound, rewritten on each selection, expected to be automatically looped
     this.playbackObject = new Audio.Sound();
     //holds the selection object (src and correct chords)
@@ -91,9 +92,20 @@ export class PracticalTest extends React.Component {
   };
 
   handlePlay() {
+    //clear out button and previous sound information:
+    this.setState({
+      buttonArray: [],
+    })
+    //this.buttonArray = [];
+    this.clicked = {};
+    this.selection = {};
+    this.correctAnswers = [];
+
+    //if app in initialized state (i.e., no selection chosen), get selection
     if (this.state.init) {
       this.getSelection();
     } else {
+      //play the selection already chosen
       this.playSound();
     };
   };
@@ -108,8 +120,8 @@ export class PracticalTest extends React.Component {
     this.setState({
       init: false,
       stop: false,
+      buttonArray: [],
     });
-    this.buttonArray = [];
     this.clicked = {};
     this.selection = {};
     this.correctAnswers = [];
@@ -130,6 +142,7 @@ export class PracticalTest extends React.Component {
     //lose access to this inside for loops, so copy this.correctAnswers
     var correctChords = this.correctAnswers;
     var allPossibleChordsList = this.allPossibleChords;
+    var tempButtonArray = this.state.buttonArray;
 
     //generate correct and incorrect answers, list of button rows and sublist of button info objects, also add booleans to this.clicked
     for (var i = 0; i < 4; i++) {
@@ -140,7 +153,7 @@ export class PracticalTest extends React.Component {
         if (this.state.mode !== 'jazz') {
           //this.clicked[0] = false;
           tempButtonList.push({chordName: correctChords[i], correct: true, value: 0});
-          this.buttonArray.push(tempButtonList);
+          tempButtonArray.push(tempButtonList);
           continue;
         };
       };
@@ -153,10 +166,12 @@ export class PracticalTest extends React.Component {
       for (var j = 2; j < 5; j++) {
         this.clicked[10 * i + j] = false;
         var random = Math.floor(Math.random() * wrongAnswersList.length); //index of random chord
+
         tempButtonList.push({chordName: wrongAnswersList[random], correct: false, value: (100 * i + 10 * j)});
         wrongAnswersList.splice(random, 1);
       };
       //tempButtonList now contains a list of objects that make up a row of buttons
+
       //shuffle this list:
       var shuffledArray = [];
       while (tempButtonList.length !== 0) {
@@ -165,14 +180,21 @@ export class PracticalTest extends React.Component {
         tempButtonList.splice(randIndex, 1);
       };
       //push row to "master" list of buttons
-      this.buttonArray.push(shuffledArray);
+      tempButtonArray.push(shuffledArray);
     };
     //note: this is essential to cause re-render on creation of buttons, won't happen for class variables
     this.setState({
-      clicked: this.clicked
+      clicked: this.clicked,
+      buttonArray: tempButtonArray
     });
     //console.log('this.buttonArray:');
     //console.log(this.buttonArray);
+  };
+
+  async playOneChord() {
+    var playbackObject = new Audio.Sound();
+    await playbackObject.loadAsync(practicalSoundbank.givenOneChord);
+    await playbackObject.playAsync();
   };
 
   async playSound() {
@@ -231,9 +253,19 @@ export class PracticalTest extends React.Component {
             </Picker>
           </View>
         </View>
+        {this.state.mode === 'jazz' && <View style={{flexDirection: 'row', marginTop: 5, backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginLeft: 55, marginRight: 55,}}>
+          <TouchableOpacity
+            style={{marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', padding: 7}}
+            onPress={() => this.playOneChord()}
+          >
+            <Text style={practicalStyles.oneChordLabel}>Hear the tonic:</Text>
+            <Text style={{fontSize: 24, fontWeight: 'bold', fontFamily: 'serif', alignSelf: 'center'}}>IM7</Text>
+          </TouchableOpacity>
+        </View>
+        }
         <View style={practicalStyles.buttonAreaWrapper}>
         {
-          this.buttonArray.map(row =>
+          this.state.buttonArray.map(row =>
             <View style={practicalStyles.buttonRow}>
               <Text style={practicalStyles.rowBullet}>{'\u2B24'}</Text>
               {row.map(chord => chord.correct ?

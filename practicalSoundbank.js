@@ -1,4 +1,5 @@
 export const practicalSoundbank = {
+  givenOneChord: require('./assets/chords/cmaj7_inv.mp3'),
   'electronica': [
     {
       src: require('./assets/chords/cmaj_root.mp3'),
@@ -15,14 +16,14 @@ export const practicalSoundbank = {
   ],
   'funk': [
     {
-      src: '',
-      correctChords: [],
+      src: require('./assets/chords/drumLoopTest.mp3'),
+      correctChords: ['im7', 'bIIM7', 'IIIM7', 'bIIM7'],
     },
   ],
   'jazz': [
     {
       src: '',
-      correctChords: [],
+      correctChords: ['iim7', 'V7alt', 'IM7', 'IM7'],
     },
   ],
 };

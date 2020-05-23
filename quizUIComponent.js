@@ -31,7 +31,7 @@ export class QuizUI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: {} //object with boolean for each button element's clicked state (key is trivial integer value unique to button), passed to button components as prop
+      clicked: {}, //object with boolean for each button element's clicked state (key is trivial integer value unique to button), passed to button components as prop
     };
     this.makeClicked = this.makeClicked.bind(this);
     this.getButtons = this.getButtons.bind(this);
@@ -86,14 +86,14 @@ export class QuizUI extends React.Component {
     });
 
     this.possibleChordNames = this.newAllowedList.map(function(a) {
-      console.log('generating new incorrect button names...');
-      console.log(intToChordName(a));
+      //console.log('generating new incorrect button names...');
+      //console.log(intToChordName(a));
       return intToChordName(a);
     });
 
     this.actualChordNames = this.props.chords.map(function(a) {
-      console.log('generating new correct button names...');
-      console.log(intToChordName(a));
+      //console.log('generating new correct button names...');
+      //console.log(intToChordName(a));
       return intToChordName(a);
     });
   };
@@ -107,7 +107,7 @@ export class QuizUI extends React.Component {
         //will hold a list of objects where each object is a button with an integer value representing position and two props, chordName, and a boolean indicating whether or not answer is correct, and value, used for element key and for style reference
         var tempButtonList = [];
         this.clicked[i] = false;
-        console.log('correct chord button name: ' + actualChordNames[i]);
+        //console.log('correct chord button name: ' + actualChordNames[i]);
         tempButtonList.push({chordName: actualChordNames[i], correct: true, value: (i)}); //generate correct answers, value should always be single digit
 
         var answerlessAllowed = this.possibleChordNames.filter(function(a) { //create list without correct answer from all possible chords to generate wrong answers from
