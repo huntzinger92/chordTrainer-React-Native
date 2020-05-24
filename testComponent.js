@@ -15,6 +15,7 @@ import {QuizUI} from './quizUIComponent.js';
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 //import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 //import { faCoffee } from '@fortawesome/free-solid-svg-icons';
@@ -59,6 +60,7 @@ export class Test extends React.Component {
       init: true, //if chords have not been gotten yet, useful to ensure "hear chord" button both generates chords on first click and replays them on second click
       displayPossible: false, //toggles display of all possible chords with current settings
       displaySettings: false, //toggles display of settings/quiz
+      showAlert: false,
     };
     this.renderMusic = this.renderMusic.bind(this);
     this.getChords = this.getChords.bind(this);
@@ -75,6 +77,8 @@ export class Test extends React.Component {
     this.handleDisplayPossible = this.handleDisplayPossible.bind(this);
     this.playMusic = this.playMusic.bind(this);
     this.toggleDisplay = this.toggleDisplay.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+    this.hideAlert = this.hideAlert.bind(this);
     //variables with "global" access (within component)
     this.timeout = 0; //id to hold timeout on playMusic calls, to be cleared on this.state.stop (note: just initialized with an integer, used as a timeout object)
     //three functions below
@@ -149,6 +153,14 @@ export class Test extends React.Component {
       console.log("sound didn't play because");
       console.log(error);
     };
+  };
+
+  showAlert() {
+    this.setState({showAlert: true});
+  };
+
+  hideAlert() {
+    this.setState({showAlert: false})
   };
 
   //HANDLERS FOR SETTING CHANGES
@@ -476,7 +488,7 @@ export class Test extends React.Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#ebf1fa'}}>
         {this.state.displaySettings && <View style={styles.settingsWrapper}>
         <TouchableOpacity
           onPress={() => this.toggleDisplay()}
@@ -675,7 +687,7 @@ export class Test extends React.Component {
               <Ionicons name="md-settings" size={28} color="black" />
             </TouchableOpacity>
           </View>
-          <View id='QuizUI'>
+          <View>
             <QuizUI
               chords = {this.state.chords}
               chordsAllowed = {this.chordsAllowed}
@@ -684,9 +696,28 @@ export class Test extends React.Component {
               chordClass = {this.state.chordClass}
               displayPossible = {this.state.displayPossible}
               init = {this.state.init}
+              handleStop = {this.handleStop}
+              showAlert = {this.showAlert}
             />
           </View>
         </View>}
+        <AwesomeAlert
+            overlayStyle={{backgroundColor: '#ebf1fa', opacity: .7, elevation: 10}}
+            contentContainerStyle={{borderWidth: 1, borderRadius: 5, elevation: 10}}
+            show={this.state.showAlert}
+            showProgress={false}
+            title="Correct!"
+            message="Random music quote goes here."
+            closeOnTouchOutside={false}
+            closeOnHardwareBackPress={false}
+            showCancelButton={false}
+            showConfirmButton={true}
+            confirmText="  OK  "
+            confirmButtonColor="#32a852"
+            onConfirmPressed={() => {
+              this.hideAlert();
+            }}
+          />
       </ScrollView>
     );
   };

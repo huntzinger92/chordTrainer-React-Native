@@ -9,6 +9,7 @@ import {practicalStyles} from './practicalStyles.js';
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 import {
   SafeAreaView,
@@ -37,6 +38,7 @@ export class PracticalTest extends React.Component {
       clicked: {}, //object with boolean for each button element's clicked state (key is trivial integer value unique to button), passed to button components as prop
       buttonArray: [],
       showAllPossible: true,
+      showAlert: false,
     };
     this.handleModeChange = this.handleModeChange.bind(this);
     this.makeClicked = this.makeClicked.bind(this);
@@ -46,6 +48,8 @@ export class PracticalTest extends React.Component {
     this.getSelection = this.getSelection.bind(this);
     this.generateButtons = this.generateButtons.bind(this);
     this.togglePossibleDisplay = this.togglePossibleDisplay.bind(this);
+    this.correctCounter = this.correctCounter.bind(this);
+    this.hideAlert = this.hideAlert.bind(this);
 
     //to be treated as immutable, generate false answers by filtering out correct answers on each generation of buttons
     this.allElectronicaChords = [['I', 'C, E, and G'], ['ii', 'D, F, and A'], ['iii', 'E, G, and B'], ['IV', 'F, A, and C'], ['V', 'G, B, and D'], ['vi', 'A, C, and E'], ['vii°', 'B, D, and F']];
@@ -65,11 +69,13 @@ export class PracticalTest extends React.Component {
     this.clicked = {}; //will be an object that indicates whether each button has been clicked or not, temp hold in processing, passed to state on completion
 
     this.possibleChordButtonStyle = {fontSize: 24, fontFamily: 'serif', marginLeft: 'auto', marginRight: 'auto'};
+    //when correct count gets up to 3 or 4 (depending on mode - three if electronica, else 4), handled by this.correctCounter
+    this.correctCount = 0;
   };
 
   componentDidUpdate() {
     if (this.state.stop) {
-      this.playbackObject.setStatusAsync({ isLooping: false });
+      this.playbackObject.setStatusAsync({ isLooping: false, shouldPlay: false });
       this.setState({stop: false});
     };
   };
@@ -83,6 +89,24 @@ export class PracticalTest extends React.Component {
     this.setState({
       showAllPossible: !this.state.showAllPossible
     });
+  };
+
+  correctCounter() {
+    if (this.state.mode === 'electronica' && this.correctCount === 2) {
+      this.setState({stop: true});
+      this.correctCount = 0;
+      this.setState({showAlert: true});
+    } else if (this.correctCount === 3) {
+      this.setState({stop: true});
+      this.correctCount = 0;
+      this.setState({showAlert: true});
+    } else {
+      this.correctCount++;
+    };
+  };
+
+  hideAlert() {
+    this.setState({showAlert: false})
   };
 
   handleModeChange(selectedMode) {
@@ -233,6 +257,23 @@ export class PracticalTest extends React.Component {
   render() {
     return (
       <View style={practicalStyles.practicalWrapper}>
+        <AwesomeAlert
+          overlayStyle={{backgroundColor: '#ebf1fa', opacity: .7, elevation: 10}}
+          contentContainerStyle={{borderWidth: 1, borderRadius: 5, elevation: 10}}
+          show={this.state.showAlert}
+          showProgress={false}
+          title="Correct!"
+          message="Random music quote goes here."
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="  OK  "
+          confirmButtonColor="#32a852"
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
         <View style={practicalStyles.settingsAndSoundRow}>
           <TouchableOpacity
             style={practicalStyles.soundButton}
@@ -307,7 +348,7 @@ export class PracticalTest extends React.Component {
             <View style={practicalStyles.buttonRow}>
               <Text style={practicalStyles.rowBullet}>{'\u2B24'}</Text>
               {row.map(chord => chord.correct ?
-                <CorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName}/> :
+                <CorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} correctCounter={this.correctCounter} chordName={chord.chordName}/> :
                 <IncorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName}/>
               )}
               {row.length === 1 &&

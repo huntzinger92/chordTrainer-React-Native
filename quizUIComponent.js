@@ -5,6 +5,7 @@ import React, {useState} from 'react';
 import {intToChordName} from './int-to-chord-name.js';
 //expo av library
 import {Audio} from 'expo-av';
+import AwesomeAlert from 'react-native-awesome-alerts';
 //toggle sliders (replacing checkboxes from web app - checkboxes are difficult to style)
 import ToggleSwitch from 'toggle-switch-react-native';
 
@@ -22,7 +23,7 @@ import {
   View,
   Text,
   StatusBar,
-  Picker
+  Alert
 } from 'react-native';
 
 import { CheckBox } from 'native-base';
@@ -36,6 +37,7 @@ export class QuizUI extends React.Component {
     this.makeClicked = this.makeClicked.bind(this);
     this.getButtons = this.getButtons.bind(this);
     this.cleanChordNameData = this.cleanChordNameData.bind(this);
+    this.correctCounter = this.correctCounter.bind(this);
     //variables
     this.newAllowedList = this.props.chordsAllowed; //do not want to alter original list to keep stuff from getting more complicated and co-dependent
 
@@ -48,6 +50,8 @@ export class QuizUI extends React.Component {
     this.clicked = {}; //will be an object that indicates whether each button has been clicked or not, temp hold in processing, passed to state on completion
 
     this.incorrectAmount = ''; //tracks the amount of incorrect chords to generate, used for spacing purposes in the first row (so given one chord size is responsive)
+
+    this.correctCount = 0;
   };
 
   componentDidUpdate() {
@@ -66,6 +70,17 @@ export class QuizUI extends React.Component {
 
   componentWillMount() {
     this.cleanChordNameData();
+  };
+
+  correctCounter() {
+    // === this.props.amount - 2 because we need to take away one for the given one chord and one because we only increment if this isn't the final correct answer (handled in else)
+    if (this.correctCount === this.props.amount - 2) {
+      this.correctCount = 0;
+      this.props.handleStop();
+      this.props.showAlert();
+    } else {
+      this.correctCount++;
+    };
   };
 
   makeClicked(buttonValue) {
@@ -160,13 +175,13 @@ export class QuizUI extends React.Component {
           })}
         </View>
       </View>}
-      <View id='quiz-buttons'>
+      <View>
           {
             this.buttonArray.map(row =>
               <View style={styles.buttonRow}>
                 <Text style={styles.rowBullet}>{'\u2B24'}</Text>
                 {row.map(chord => chord.correct ?
-                  <CorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName}/> :
+                  <CorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} correctCounter={this.correctCounter} chordName={chord.chordName}/> :
                   <IncorrectButton key={chord.value} value={chord.value} clicked={this.clicked[chord.value]} makeClicked={this.makeClicked} chordName={chord.chordName}/>
                 )}
                 {row.length === 1 &&

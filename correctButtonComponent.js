@@ -42,7 +42,7 @@ export function CorrectButton(props) {
             style={styles.chordUnanswered}
             value={props.value}
             key={props.value}
-            onPress={() => props.makeClicked(props.value)}
+            onPress={() => {props.makeClicked(props.value); props.correctCounter();}}
           >
             <Text style={styles.chordButtonLabel}>{props.chordName}</Text>
           </TouchableOpacity>
