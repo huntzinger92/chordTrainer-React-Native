@@ -202,11 +202,11 @@ export const musicQuotes = [
     "Roy Hargrove"
   ],
   [
-    "If you scared to take chances, you’ll never have the answers\nI could tell the future of a dude by how his stance is",
+    "If you scared to take chances, you’ll never have the answers\n\nI could tell the future of a dude by how his stance is",
     "Nas"
   ],
   [
-    "Look way deep inside yourself\nDiscover the diamond inside, find ya wealth\nOnce you get it, you gotta live it the limit",
+    "Look way deep inside yourself\n\nDiscover the diamond inside, find ya wealth\n\nOnce you get it, you gotta live it the limit",
     "Nas"
   ],
   [
@@ -278,7 +278,7 @@ export const musicQuotes = [
     "Clara Schumann"
   ],
   [
-    "If we were all determined to play the first violin we should never have an ensemble. therefore, respect every musician in his proper place.",
+    "If we were all determined to play the first violin we should never have an ensemble. Therefore, respect every musician in his proper place.",
     "Clara Schumann"
   ],
   [
@@ -382,7 +382,7 @@ export const musicQuotes = [
     "John Cage"
   ],
   [
-    "I certainly had no feeling for harmony, and Schoenberg thought that that would make it impossible for me to write music. He said, 'You'll come to a wall you won't be able to get through.' I said, 'Well then, I'll beat my head against that wall.' I quite literally began hitting things, and developed a music of percussion that involved noises.",
+    "I certainly had no feeling for harmony, and Schoenberg thought that that would make it impossible for me to write music. He said, 'You'll come to a wall you won't be able to get through.' I said, 'Well then, I'll beat my head against that wall.'",
     "John Cage"
   ],
   [
@@ -422,7 +422,7 @@ export const musicQuotes = [
     "Thelonious Monk"
   ],
   [
-    "If you take the time & your talent is real, it will last.",
+    "If you take the time and your talent is real, it will last.",
     "Bill Evans"
   ],
   [
@@ -432,10 +432,6 @@ export const musicQuotes = [
   [
     "The music field was the first to break down racial barriers, because in order to play together, you have to love the people you are playing with, and if you have any racial inhibitions, you wouldn't be able to do that.",
     "Oscar Peterson"
-  ],
-  [
-    "Keep searching for that sound you hear in your head until it becomes a reality.",
-    "Bill Evans"
   ],
   [
     "The impact of a conscious artist is necessary, and it ripples through the world.",
@@ -462,7 +458,7 @@ export const musicQuotes = [
     "Pete Seeger"
   ],
   [
-    "The creative arts have a way of bringing things or putting things in front of us that we can easily avoid in our day to day. And I do think that hearing this music, hearing the way that we express it and the way that it makes our audience feel, I think that it will definitely bring people to an awareness in general of our history, of culturally where we've come from, and the things that have been endured.",
+    "The creative arts have a way of bringing things or putting things in front of us that we can easily avoid in our day to day. And I do think that hearing this music...I think that it will definitely bring people to an awareness in general of our history, of culturally where we've come from, and the things that have been endured.",
     "Trey McLaughlin"
   ],
   [

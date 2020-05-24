@@ -20,16 +20,7 @@ import {
 export function Explanation() {
   return (
     <View style={styles.explanationWrapper}>
-      <Text style={styles.explanationHeader}>About</Text>
-      <Text style={styles.explanationIntroText}>This app is designed to help you practice identifying a wide variety of chord progressions by ear. It quizzes you on randomized
-      chord progressions, generated from settings you have a high degree of control over.</Text>
-      <Text style={styles.explanationIntroText}>You can allow/disallow inversions, random keys, use major, minor, and any mode, use seventh
-      chords, and more! Being able to quickly identify chord progressions by ear is essential for any musician, and a skill well worth mastering.
-      </Text>
-      <Text style={[styles.explanationIntroText, {borderBottomWidth: 1, paddingBottom: 12,}]}>To get the most of out your practice, it's best to already have a basic understanding of the different
-      types of chords. You can find a beginner friendly explanation of them <Text style={{textDecorationLine: 'underline'}} onPress={() => Linking.openURL('https://www.musictheory.net/lessons/40')}>here</Text>.
-      </Text>
-      <Text style={styles.explanationHeader}>Brief Overview of Chord Progressions</Text>
+      <Text style={styles.explanationHeader}>A Brief Overview of Chord Progressions</Text>
       <Text style={styles.explanationText}>In any given key or mode (such as C major or D minor), there are seven chords you can make, each one based off of one note from the scale. The names of these chords
       come from which note of the scale they are based on, known as "scale degrees". These chords are written as the roman numeral of whatever scale degree they are based on.
       </Text>
@@ -158,7 +149,7 @@ export function Explanation() {
             <Text style={[styles.exampleRowTitleText, styles.exampleGridText]}>Chord: </Text>
           </View>
           <View style={styles.exampleViewGrid}>
-            <Text style={styles.exampleGridText}>Cmaj7</Text>
+            <Text style={styles.exampleGridText}>CΔ7</Text>
           </View>
           <View style={styles.exampleViewGrid}>
             <Text style={styles.exampleGridText}>Dm7</Text>
@@ -167,7 +158,7 @@ export function Explanation() {
             <Text style={styles.exampleGridText}>Em7</Text>
           </View>
           <View style={styles.exampleViewGrid}>
-            <Text style={styles.exampleGridText}>Fmaj7</Text>
+            <Text style={styles.exampleGridText}>FΔ7</Text>
           </View>
           <View style={styles.exampleViewGrid}>
             <Text style={styles.exampleGridText}>G7</Text>

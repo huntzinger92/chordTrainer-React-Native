@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 //icons
 import { FontAwesome } from '@expo/vector-icons';
 //custon components
+import {About} from './aboutComponent.js';
 import {Test} from './testComponent.js';
 import {PracticalTest} from './practicalTestComponent.js';
 import {Explanation} from './explanationComponent.js';
@@ -33,7 +34,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const App: () => React$Node = (props) => {
-  //four possible options: 'home', 'explanation', 'test', 'practicalTest'
+  //five possible options: 'home', 'about', 'explanation', 'test', 'practicalTest'
   const [displayComponent, setDisplayComponent] = useState('home');
   return (
     <ScrollView style={styles.appWrapper}>
@@ -50,8 +51,14 @@ const App: () => React$Node = (props) => {
       {displayComponent === 'home' &&
         <View style={styles.homeWrapper}>
           <TouchableOpacity
-            onPress={() => setDisplayComponent('explanation')}
+            onPress={() => setDisplayComponent('about')}
             style={[styles.navigationButtons, {marginTop: 40}]}
+          >
+            <Text style={styles.navigationText}>About the App</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setDisplayComponent('explanation')}
+            style={styles.navigationButtons}
           >
             <Text style={styles.navigationText}>Review the Theory</Text>
           </TouchableOpacity>
@@ -69,21 +76,24 @@ const App: () => React$Node = (props) => {
           </TouchableOpacity>
         </View>
       }
+      {displayComponent === 'about' &&
+        <View>
+          <About/>
+        </View>
+      }
       {displayComponent === 'explanation' &&
         <View>
           <Explanation/>
           <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
-            style={[styles.navigationButtons, {width: 185, marginTop: 7}]}
+            style={[styles.navigationButtons, {width: 185, marginTop: 15}]}
           >
             <Text style={styles.navigationText}>Try the quiz!</Text>
           </TouchableOpacity>
         </View>
       }
       {displayComponent === 'test' &&
-        <View>
-          <Test/>
-        </View>
+        <Test/>
       }
       {displayComponent === 'practicalTest' &&
         <View>

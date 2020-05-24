@@ -39,8 +39,9 @@ export class PracticalTest extends React.Component {
       init: true, //if init is true, get chords and butttons, else, just play sound,
       clicked: {}, //object with boolean for each button element's clicked state (key is trivial integer value unique to button), passed to button components as prop
       buttonArray: [],
-      showAllPossible: true,
+      showAllPossible: false,
       showAlert: false,
+      showChordAlert: false,
     };
     this.handleModeChange = this.handleModeChange.bind(this);
     this.makeClicked = this.makeClicked.bind(this);
@@ -52,6 +53,9 @@ export class PracticalTest extends React.Component {
     this.togglePossibleDisplay = this.togglePossibleDisplay.bind(this);
     this.correctCounter = this.correctCounter.bind(this);
     this.hideAlert = this.hideAlert.bind(this);
+    this.showChordAlert = this.showChordAlert.bind(this);
+    this.hideChordAlert = this.hideChordAlert.bind(this);
+    this.getQuote = this.getQuote.bind(this);
 
     //to be treated as immutable, generate false answers by filtering out correct answers on each generation of buttons
     this.allElectronicaChords = [['I', 'C, E, and G'], ['ii', 'D, F, and A'], ['iii', 'E, G, and B'], ['IV', 'F, A, and C'], ['V', 'G, B, and D'], ['vi', 'A, C, and E'], ['vii°', 'B, D, and F']];
@@ -75,6 +79,8 @@ export class PracticalTest extends React.Component {
     this.correctCount = 0;
     //on all correct chords clicked, random quote loaded here, then used in the AwesomeAlert component
     this.musicQuote = '';
+    //will hold the chosen possible chord notes, to be used in an awesome alert message
+    this.chordAlertMessage = '';
   };
 
   componentDidUpdate() {
@@ -95,17 +101,22 @@ export class PracticalTest extends React.Component {
     });
   };
 
+  getQuote() {
+    var index = Math.floor(Math.random() * musicQuotes.length);
+    var randomQuote = musicQuotes[index];
+    this.musicQuote = '"' + randomQuote[0] + '"' + '\n\n- ' + randomQuote[1];
+  };
+
   correctCounter() {
-    if (this.state.mode === 'electronica' && this.correctCount === 2) {
-      this.setState({stop: true});
+    //console.log('correctCounter before increment: ' + this.correctCount);
+    if (this.state.mode !== 'jazz' && this.correctCount === 2) {
       this.correctCount = 0;
-      var index = Math.floor(Math.random() * musicQuotes.length);
-      var randomQuote = musicQuotes[index];
-      this.musicQuote = '"' + randomQuote[0] + '"' + '\n\n- ' + randomQuote[1];
+      this.getQuote();
       this.setState({showAlert: true, stop: true});
     } else if (this.correctCount === 3) {
-      this.setState({stop: true});
       this.correctCount = 0;
+      this.getQuote();
+      this.setState({showAlert: true, stop: true});
     } else {
       this.correctCount++;
     };
@@ -196,7 +207,9 @@ export class PracticalTest extends React.Component {
         };
       };
       //create a tempList of all possible answers except the correct one
-      var wrongAnswersList = allPossibleChordsList.filter((chord) => chord != correctChords[i]);
+      console.log('filtering out :' + correctChords[i]);
+      var wrongAnswersList = allPossibleChordsList.filter((chord) => chord[0] != correctChords[i]);
+      console.log('filtered list: ' + wrongAnswersList);
       //add correct answer
       this.clicked[i + 1] = false;
       tempButtonList.push({chordName: correctChords[i], correct: true, value: (i + 1)});
@@ -256,30 +269,29 @@ export class PracticalTest extends React.Component {
     //make sure that status is set to loop
   };
 
-  showChordNames(chordNoteNameText) {
-    alert('The notes for this chord (in root position) are ' + chordNoteNameText);
+  showChordAlert(chordNoteNameText) {
+    if (this.state.showChordAlert) {
+      this.setState({
+        showChordAlert: false
+      });
+    } else {
+      this.chordAlertMessage = chordNoteNameText;
+      this.setState({
+        showChordAlert: true,
+      });
+    };
+  };
+
+  hideChordAlert() {
+    //console.log('hiding chord alert');
+    this.setState({
+      showChordAlert: false,
+    });
   };
 
   render() {
     return (
       <View style={practicalStyles.practicalWrapper}>
-        <AwesomeAlert
-          overlayStyle={{backgroundColor: '#ebf1fa', opacity: .7, elevation: 10}}
-          contentContainerStyle={{borderWidth: 1, borderRadius: 5, elevation: 10}}
-          show={this.state.showAlert}
-          showProgress={false}
-          title="Correct!"
-          message={this.musicQuote}
-          closeOnTouchOutside={false}
-          closeOnHardwareBackPress={false}
-          showCancelButton={false}
-          showConfirmButton={true}
-          confirmText="  OK  "
-          confirmButtonColor="#32a852"
-          onConfirmPressed={() => {
-            this.hideAlert();
-          }}
-        />
         <View style={practicalStyles.settingsAndSoundRow}>
           <TouchableOpacity
             style={practicalStyles.soundButton}
@@ -312,23 +324,34 @@ export class PracticalTest extends React.Component {
           </View>
         </View>
         <TouchableOpacity
-          style={[practicalStyles.allPossibleWrapper, {marginLeft: this.state.showAllPossible ? 20 : 55, marginRight: this.state.showAllPossible ? 20 : 55}]}
+          style={[practicalStyles.allPossibleWrapper, {marginLeft: 25, marginRight: 25}]}
           onPress={this.state.showAllPossible ? undefined : () => this.togglePossibleDisplay()}
           disabled={this.state.showAllPossible ? true : false}
         >
-          <TouchableOpacity
-            onPress={() => this.togglePossibleDisplay()}
-            style={{marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', borderWidth: this.state.showAllPossible ? 1 : 0, borderRadius: this.state.showAllPossible ? 5 : 0, padding: this.state.showAllPossible ? 10 : 0}}
-          >
-            <Text style={{fontSize: 20}}>{this.state.showAllPossible ? 'Hide' : 'Show All Possible Chords'}</Text>
-          </TouchableOpacity>
+          {
+            !this.state.showAllPossible &&
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{marginLeft: 'auto', marginRight: 'auto', fontSize: 20}}>Show All Possible Chords</Text>
+              <View style={{alignSelf: 'flex-end', right: 5, position: 'absolute'}}><AntDesign name="plus" size={24} color="black" /></View>
+            </View>
+          }
+          {
+            this.state.showAllPossible &&
+            <TouchableOpacity
+              style={{flexDirection: 'row', alignSelf: 'flex-end', right: 5, position: 'absolute', marginTop: 11, marginRight: 8}}
+              onPress={() => this.togglePossibleDisplay()}
+            >
+              <AntDesign name="minus" size={26} color="black" />
+            </TouchableOpacity>
+          }
           {this.state.showAllPossible && <View>
-            <Text style={{fontSize: 16, marginLeft: 'auto', marginRight: 'auto', marginBottom: 8}}>(click to see notes)</Text>
+            <Text style={{fontSize: 20, marginLeft: 'auto', marginRight: 'auto', marginBottom: 0}}>All Possible Chords:</Text>
+            <Text style={{fontSize: 16, marginLeft: 'auto', marginRight: 'auto', marginBottom: 12}}>(click to see notes)</Text>
             <View style={practicalStyles.possibleChordsWrapper}>
             {this.allPossibleChords.map(chordName =>
               <TouchableOpacity
                 style={practicalStyles.chordNameButton}
-                onPress={() => this.showChordNames(chordName[1])}
+                onPress={() => this.showChordAlert(chordName[1])}
               >
                 <Text style={this.possibleChordButtonStyle}>{chordName[0]}</Text>
               </TouchableOpacity>
@@ -338,7 +361,7 @@ export class PracticalTest extends React.Component {
           </View>
           }
         </TouchableOpacity>
-        {this.state.mode === 'jazz' && <View style={{flexDirection: 'row', marginTop: 5, backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginLeft: 55, marginRight: 55,}}>
+        {this.state.mode === 'jazz' && <View style={{flexDirection: 'row', marginTop: 5, backgroundColor: 'white', borderWidth: 1, borderRadius: 5, marginLeft: 25, marginRight: 25,}}>
           <TouchableOpacity
             style={{marginLeft: 'auto', marginRight: 'auto', flexDirection: 'row', padding: 7}}
             onPress={() => this.playOneChord()}
@@ -365,6 +388,44 @@ export class PracticalTest extends React.Component {
           )
         }
         </View>
+        <AwesomeAlert
+          overlayStyle={{backgroundColor: '#ebf1fa', opacity: 0.1, elevation: 10}}
+          contentContainerStyle={{borderWidth: 1, borderRadius: 5, elevation: 10, minWidth: 100,}}
+          show={this.state.showAlert}
+          showProgress={false}
+          title="Correct!"
+          message={this.musicQuote}
+          titleStyle={{fontSize: 18, fontWeight: 'bold', color: 'black'}}
+          messageStyle={{fontSize: 15, color: 'black', textAlign: 'center', fontStyle: 'italic'}}
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="  OK  "
+          confirmButtonColor="#32a852"
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
+        <AwesomeAlert
+          overlayStyle={{backgroundColor: '#ebf1fa', opacity: 0.1, elevation: 10}}
+          contentContainerStyle={{borderWidth: 1, borderRadius: 5, elevation: 10,}}
+          show={this.state.showChordAlert}
+          showProgress={false}
+          title="Notes for this chord in root position:"
+          message={this.chordAlertMessage}
+          titleStyle={{fontSize: 16, color: 'black'}}
+          messageStyle={{fontSize: 16, color: 'black'}}
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="  OK  "
+          confirmButtonColor="#32a852"
+          onConfirmPressed={() => {
+            this.hideChordAlert();
+          }}
+        />
       </View>
     );
   };

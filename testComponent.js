@@ -148,7 +148,7 @@ export class Test extends React.Component {
       console.log('could not play sound because: ' + error);
     }
     if (this.state.transpositions) {
-      console.log('this.detuneValue: ' + this.detuneValue);
+      //console.log('this.detuneValue: ' + this.detuneValue);
       await this.playbackObject.setRateAsync(this.detuneValue, shouldCorrectPitch = false);
     };
     try {
@@ -709,12 +709,15 @@ export class Test extends React.Component {
           </View>
         </View>}
         <AwesomeAlert
-            overlayStyle={{backgroundColor: '#ebf1fa', opacity: .7, elevation: 10}}
-            contentContainerStyle={{borderWidth: 1, borderRadius: 5, elevation: 10}}
+            overlayStyle={{backgroundColor: '#ebf1fa', elevation: 10, opacity: 0}}
+            contentContainerStyle={{borderWidth: 1, elevation: 10, borderRadius: 5, marginBottom: 5, marginTop: 5, minWidth: 75}}
             show={this.state.showAlert}
             showProgress={false}
             title="Correct!"
             message={this.musicQuote}
+
+            titleStyle={{fontSize: 18, fontWeight: 'bold', color: 'black'}}
+            messageStyle={{fontSize: 15, color: 'black', fontStyle: 'italic', textAlign: 'center'}}
             closeOnTouchOutside={false}
             closeOnHardwareBackPress={false}
             showCancelButton={false}

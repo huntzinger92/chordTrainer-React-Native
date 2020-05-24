@@ -76,7 +76,7 @@ export class QuizUI extends React.Component {
     // === this.props.amount - 2 because we need to take away one for the given one chord and one because we only increment if this isn't the final correct answer (handled in else)
     if (this.correctCount === this.props.amount - 2) {
       this.correctCount = 0;
-      this.props.handleStop();
+      //this.props.handleStop();
       this.props.showAlert();
     } else {
       this.correctCount++;
