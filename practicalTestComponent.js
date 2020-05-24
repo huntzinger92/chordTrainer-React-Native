@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-//replace with practicalSoundbank.js
+//practical soundbank library
 import {practicalSoundbank} from './practicalSoundbank.js';
+//music quote library
+import {musicQuotes} from './musicQuoteLibrary.js';
 //expo av library
 import {Audio} from 'expo-av';
 //toggle sliders (replacing checkboxes from web app - checkboxes are difficult to style)
@@ -71,6 +73,8 @@ export class PracticalTest extends React.Component {
     this.possibleChordButtonStyle = {fontSize: 24, fontFamily: 'serif', marginLeft: 'auto', marginRight: 'auto'};
     //when correct count gets up to 3 or 4 (depending on mode - three if electronica, else 4), handled by this.correctCounter
     this.correctCount = 0;
+    //on all correct chords clicked, random quote loaded here, then used in the AwesomeAlert component
+    this.musicQuote = '';
   };
 
   componentDidUpdate() {
@@ -95,11 +99,13 @@ export class PracticalTest extends React.Component {
     if (this.state.mode === 'electronica' && this.correctCount === 2) {
       this.setState({stop: true});
       this.correctCount = 0;
-      this.setState({showAlert: true});
+      var index = Math.floor(Math.random() * musicQuotes.length);
+      var randomQuote = musicQuotes[index];
+      this.musicQuote = '"' + randomQuote[0] + '"' + '\n\n- ' + randomQuote[1];
+      this.setState({showAlert: true, stop: true});
     } else if (this.correctCount === 3) {
       this.setState({stop: true});
       this.correctCount = 0;
-      this.setState({showAlert: true});
     } else {
       this.correctCount++;
     };
@@ -263,7 +269,7 @@ export class PracticalTest extends React.Component {
           show={this.state.showAlert}
           showProgress={false}
           title="Correct!"
-          message="Random music quote goes here."
+          message={this.musicQuote}
           closeOnTouchOutside={false}
           closeOnHardwareBackPress={false}
           showCancelButton={false}

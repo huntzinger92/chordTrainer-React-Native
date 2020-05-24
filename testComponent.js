@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 //soundbank is a constant list of chord objects, to be treated as immutable
 import {soundbank} from './soundbank.js';
+//music quote library
+import {musicQuotes} from './musicQuoteLibrary.js';
 //function that receives chord object as parameter and, depending on its prop values, returns the chord in notation, i.e. (Imaj7, iv, V7, etc.)
 import {intToChordName} from './int-to-chord-name.js';
 //expo av library
@@ -89,6 +91,8 @@ export class Test extends React.Component {
     this.detuneValue = 0; //used to detune audio to enable transpositions
     this.count = 0; //count will be used to keep track of how many chords have played, function playMusic clears intervalID when count === this.state.amount
     this.chordsAllowed = [soundbank[0], soundbank[3], soundbank[4]]; //used to generate random chord progressions, to be initialized with 1,4,5 in major soundbank[3], soundbank[4]
+    //on all correct chords clicked, random quote loaded here, then used in the AwesomeAlert component
+    this.musicQuote = '';
   };
 
   componentDidUpdate() {
@@ -156,6 +160,9 @@ export class Test extends React.Component {
   };
 
   showAlert() {
+    var index = Math.floor(Math.random() * musicQuotes.length);
+    var randomQuote = musicQuotes[index];
+    this.musicQuote = '"' + randomQuote[0] + '"' + '\n\n- ' + randomQuote[1];
     this.setState({showAlert: true});
   };
 
@@ -707,7 +714,7 @@ export class Test extends React.Component {
             show={this.state.showAlert}
             showProgress={false}
             title="Correct!"
-            message="Random music quote goes here."
+            message={this.musicQuote}
             closeOnTouchOutside={false}
             closeOnHardwareBackPress={false}
             showCancelButton={false}
