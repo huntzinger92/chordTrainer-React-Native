@@ -56,9 +56,10 @@ export class QuizUI extends React.Component {
 
   componentDidUpdate() {
 
-    if (this.props.init) { //if init from parent component, clear out buttons and styles
+    if (this.props.init) { //if init from parent component, clear out buttons, correct count, and clicked object
       this.clicked = {};
       this.buttonArray = [];
+      this.correctCount = 0;
       this.cleanChordNameData();
     };
 

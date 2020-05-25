@@ -181,11 +181,11 @@ export const practicalSoundbank = {
     },
     {
       src: require('./assets/chords/funk1765.mp3'),
-      correctChords: ['im7', 'VIIM7', 'VIM7', 'V7'],
+      correctChords: ['im7', 'VII7', 'VIM7', 'V7'],
     },
     {
       src: require('./assets/chords/funk1765alt.mp3'),
-      correctChords: ['im7', 'VIIM7', 'VIM7', 'V7alt'],
+      correctChords: ['im7', 'VII7', 'VIM7', 'V7alt'],
     },
     {
       src: require('./assets/chords/funk116dim7.mp3'),

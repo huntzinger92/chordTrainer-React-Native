@@ -134,6 +134,7 @@ export class PracticalTest extends React.Component {
       buttonArray: [],
     });
 
+    this.correctCount = 0;
     this.clicked = {};
 
     if (selectedMode === 'electronica') {
@@ -175,10 +176,11 @@ export class PracticalTest extends React.Component {
       stop: false,
       buttonArray: [],
     })
-    //this.buttonArray = [];
+    //clear out all selection specific variables
     this.clicked = {};
     this.selection = {};
     this.correctAnswers = [];
+    this.correctCount = 0;
     //select random chord progression from mode of practicalSoundbank here
     var selectionListLength = practicalSoundbank[this.state.mode].length;
     Object.assign(this.selection, practicalSoundbank[this.state.mode][Math.floor(Math.random() * selectionListLength)]);
@@ -207,9 +209,9 @@ export class PracticalTest extends React.Component {
         };
       };
       //create a tempList of all possible answers except the correct one
-      console.log('filtering out :' + correctChords[i]);
+      //console.log('filtering out :' + correctChords[i]);
       var wrongAnswersList = allPossibleChordsList.filter((chord) => chord[0] != correctChords[i]);
-      console.log('filtered list: ' + wrongAnswersList);
+      //console.log('filtered list: ' + wrongAnswersList);
       //add correct answer
       this.clicked[i + 1] = false;
       tempButtonList.push({chordName: correctChords[i], correct: true, value: (i + 1)});
