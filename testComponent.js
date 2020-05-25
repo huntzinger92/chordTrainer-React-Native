@@ -453,7 +453,7 @@ export class Test extends React.Component {
       //note: this needs to be written to accomodate the speed setting of react-native-sound library. Speed is set as an integer percentage (.9 = 90%)
       if (this.state.transpositions) {
         //1.0595 is the percent by which a frequency needs to be shifted to change by a half-step
-        this.detuneValue = (((Math.floor(Math.random() * 6)) - 3) * .05333) + 1; //ranges from -3 to +2 half steps, or 1 - 3*.05333 to 1 + 2*1.05333
+        this.detuneValue = (((Math.floor(Math.random() * 4)) - 3) * .0538) + 1; //ranges from -3 to +2 half steps, or 1 - 3*.05333 to 1 + 2*1.05333
         //this.detuneValue = 0.84;
       };
       this.setState({

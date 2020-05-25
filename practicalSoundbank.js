@@ -173,7 +173,7 @@ export const practicalSoundbank = {
     },
     {
       src: require('./assets/chords/funk14dom65alt.mp3'),
-      correctChords: ['im7', 'IV7', 'VI7', 'V7alt'],
+      correctChords: ['im7', 'IV7', 'VIM7', 'V7alt'],
     },
     {
       src: require('./assets/chords/funk14dom45.mp3'),
@@ -234,8 +234,140 @@ export const practicalSoundbank = {
   ],
   'jazz': [
     {
-      src: '',
-      correctChords: ['iim7', 'V7alt', 'IM7', 'IM7'],
+      src: require('./assets/chords/jazz1625.mp3'),
+      correctChords: ['IM7', 'vim7', 'iim7', 'V7'],
+    },
+    {
+      src: require('./assets/chords/jazz1625alt.mp3'),
+      correctChords: ['IM7', 'vim7', 'iim7', 'V7alt'],
+    },
+    {
+      src: require('./assets/chords/jazz1625.mp3'),
+      correctChords: ['IM7', 'vim7', 'iim7', 'V7'],
+    },
+    {
+      src: require('./assets/chords/jazz162dom5.mp3'),
+      correctChords: ['IM7', 'vim7', 'II7', 'V7'],
+    },
+    {
+      src: require('./assets/chords/jazz162dom5alt.mp3'),
+      correctChords: ['IM7', 'vim7', 'II7', 'V7alt'],
+    },
+    {
+      src: require('./assets/chords/jazz16dom2dom5.mp3'),
+      correctChords: ['IM7', 'VI7', 'II7', 'V7'],
+    },
+    {
+      src: require('./assets/chords/jazz162domb2.mp3'),
+      correctChords: ['IM7', 'vim7', 'II7', 'bIIM7'],
+    },
+    {
+      src: require('./assets/chords/jazz2516.mp3'),
+      correctChords: ['iim7', 'V7', 'I6', 'vim7'],
+    },
+    {
+      src: require('./assets/chords/jazz2516dom.mp3'),
+      correctChords: ['iim7', 'V7', 'IM7', 'VI7'],
+    },
+    {
+      src: require('./assets/chords/jazz25alt16.mp3'),
+      correctChords: ['iim7', 'V7alt', 'IM7', 'VI7'],
+    },
+    {
+      src: require('./assets/chords/jazz1b3b6b2.mp3'),
+      correctChords: ['IM7', 'bIIIM7', 'bVIM7', 'bIIM7'],
+    },
+    {
+      src: require('./assets/chords/jazz1b32domb2.mp3'),
+      correctChords: ['IM7', 'bIIIM7', 'II7', 'bIIM7'],
+    },
+    {
+      src: require('./assets/chords/jazz11m72domb2.mp3'),
+      correctChords: ['IM7', 'im7', 'II7', 'bIIM7'],
+    },
+    {
+      src: require('./assets/chords/jazz13b3b2.mp3'),
+      correctChords: ['IM7', 'iiim7', 'bIIIM7', 'bIIM7'],
+    },
+    {
+      src: require('./assets/chords/jazz4b7dom12dom.mp3'),
+      correctChords: ['IVM7', 'bVII7', 'IM7', 'II7'],
+    },
+    {
+      src: require('./assets/chords/jazz2dom4b7dom1.mp3'),
+      correctChords: ['II7', 'IVM7', 'bVII7', 'IM7'],
+    },
+    {
+      src: require('./assets/chords/jazz4m7b7dom36.mp3'),
+      correctChords: ['iv7', 'bVII7', 'iiim7', 'vim7'],
+    },
+    {
+      src: require('./assets/chords/jazz1232.mp3'),
+      correctChords: ['IM7', 'iim7', 'iiim7', 'iim7'],
+    },
+    {
+      src: require('./assets/chords/jazz1234.mp3'),
+      correctChords: ['IM7', 'iim7', 'iiim7', 'IVM7'],
+    },
+    {
+      src: require('./assets/chords/jazz1234m7.mp3'),
+      correctChords: ['IM7', 'iim7', 'iiim7', 'ivm7'],
+    },
+    {
+      src: require('./assets/chords/jazz17dim3dom6.mp3'),
+      correctChords: ['IM7', 'viiø7', 'III7', 'vi7'],
+    },
+    {
+      src: require('./assets/chords/jazz17dim3alt6.mp3'),
+      correctChords: ['IM7', 'viiø7', 'III7alt', 'vim7'],
+    },
+    {
+      src: require('./assets/chords/jazz15m71dom4.mp3'),
+      correctChords: ['IM7', 'vm7', 'I7', 'IVM7'],
+    },
+    {
+      src: require('./assets/chords/jazz1251.mp3'),
+      correctChords: ['IM7', 'iim7', 'V7', 'I6'],
+    },
+    {
+      src: require('./assets/chords/jazz125alt1.mp3'),
+      correctChords: ['IM7', 'iim7', 'V7alt', 'IM7'],
+    },
+    {
+      src: require('./assets/chords/jazz12dom51.mp3'),
+      correctChords: ['IM7', 'II7', 'V7', 'IM7'],
+    },
+    {
+      src: require('./assets/chords/jazz12alt5alt1.mp3'),
+      correctChords: ['IM7', 'II7alt', 'V7alt', 'I6'],
+    },
+    {
+      src: require('./assets/chords/jazzb6dom511.mp3'),
+      correctChords: ['VI7', 'V7', 'I6', 'I6'],
+    },
+    {
+      src: require('./assets/chords/jazzb6dom514dom.mp3'),
+      correctChords: ['VI7', 'V7', 'I6', 'IV7'],
+    },
+    {
+      src: require('./assets/chords/jazz2525.mp3'),
+      correctChords: ['iim7', 'V7', 'iim7', 'V7'],
+    },
+    {
+      src: require('./assets/chords/jazz1dom4dom1dom4dom.mp3'),
+      correctChords: ['I7', 'IV7', 'I7', 'IV7'],
+    },
+    {
+      src: require('./assets/chords/jazz1domb7dom1domb7dom.mp3'),
+      correctChords: ['I7', 'bVII7', 'I7', 'bVII7'],
+    },
+    {
+      src: require('./assets/chords/jazz11dom44.mp3'),
+      correctChords: ['IM7', 'I7', 'IVM7', 'IVM7'],
+    },
+    {
+      src: require('./assets/chords/jazz11dom4b7dom.mp3'),
+      correctChords: ['IM7', 'I7', 'IVM7', 'bVII7'],
     },
   ],
 };

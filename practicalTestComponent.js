@@ -60,7 +60,7 @@ export class PracticalTest extends React.Component {
     //to be treated as immutable, generate false answers by filtering out correct answers on each generation of buttons
     this.allElectronicaChords = [['I', 'C, E, and G'], ['ii', 'D, F, and A'], ['iii', 'E, G, and B'], ['IV', 'F, A, and C'], ['V', 'G, B, and D'], ['vi', 'A, C, and E'], ['vii°', 'B, D, and F']];
     this.allFunkChords = [['im7', 'C, Eb, G, and Bb'], ['bIIM7', 'Db, F, Ab, and C'], ['iiø7', 'D, F, Ab, and C'], ['IIIM7', 'Eb, G, Bb, D'], ['ivm7', 'F, Ab, C, Eb'], ['IV7', 'F, A, C, Eb'], ['V7', 'G, B, D, and F'], ['V7alt', 'G, B, D#, F, and A#'], ['VIM7', 'Ab, C, Eb, and G'], ['viø7', 'A, C, Eb, and G'], ['VII7', 'Bb, D, F, Ab'], ['viiø7', 'B, D, F, Ab']];
-    this.allJazzChords = [['IM7', 'C, E, G, and B'], ['I7', 'C, E, G, and Bb'], ['bIIM7', 'Db, F, Ab, and C'], ['iiø7', 'D, F, Ab, and C'], ['bIIIM7', 'Eb, G, Bb, and D'], ['iiim7', 'E, G, B, and D'], ['ivm7', 'F, Ab, C, and Eb'], ['IV7', 'F, A, C, and Eb'], ['IVM7', 'F, A, C, and E'], ['vm7', 'G, Bb, D, and F'], ['V7', 'G, B, D, and F'], ['V7alt', 'G, B, D#, F, and A#'], ['bVI7', 'Ab, C, Eb, and Gb'], ['bVIM7', 'Ab, C, Eb, and G'], ['vim7', 'A, C, E, and G'], ['bVII7', 'Bb, D, F, and Ab'], ['viiø7', 'B, D, F, and A'], ['vii°7', 'B, D, F, and Ab']];
+    this.allJazzChords = [['I6', 'C, E, G, and A'], ['IM7', 'C, E, G, and B'], ['I7', 'C, E, G, and Bb'], ['bIIM7', 'Db, F, Ab, and C'], ['iiø7', 'D, F, Ab, and C'], ['bIIIM7', 'Eb, G, Bb, and D'], ['III7', 'E, G#, B, and D'], ['III7alt', 'E, G#, C, D, and G'], ['iiim7', 'E, G, B, and D'], ['ivm7', 'F, Ab, C, and Eb'], ['IV7', 'F, A, C, and Eb'], ['IVM7', 'F, A, C, and E'], ['vm7', 'G, Bb, D, and F'], ['V7', 'G, B, D, and F'], ['V7alt', 'G, B, D#, F, and A#'], ['bVI7', 'Ab, C, Eb, and Gb'], ['bVIM7', 'Ab, C, Eb, and G'], ['vim7', 'A, C, E, and G'], ['bVII7', 'Bb, D, F, and Ab'], ['viiø7', 'B, D, F, and A']];
     //all possible chords, assigned from handleModeChange (initalized with electronica chords)
     this.allPossibleChords = [['I', 'C, E, and G'], ['ii', 'D, F, and A'], ['iii', 'E, G, and B'], ['IV', 'F, A, and C'], ['V', 'G, B, and D'], ['vi', 'A, C, and E'], ['vii°', 'B, D, and F']];
     //array of correct chords used to generate right answers
@@ -319,9 +319,9 @@ export class PracticalTest extends React.Component {
               selectedValue={this.state.mode}
               style={practicalStyles.modeDropdown}
             >
-              <Picker.Item label='Electronica (easy)' value={'electronica'} />
-              <Picker.Item label='Funk (medium)' value={'funk'} />
-              <Picker.Item label='Jazz (hard)' value={'jazz'} />
+              <Picker.Item label='Easy (electronica)' value={'electronica'} />
+              <Picker.Item label='Medium (funk)' value={'funk'} />
+              <Picker.Item label='Hard (jazz)' value={'jazz'} />
             </Picker>
           </View>
         </View>
