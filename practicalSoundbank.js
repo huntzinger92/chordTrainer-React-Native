@@ -343,11 +343,11 @@ export const practicalSoundbank = {
     },
     {
       src: require('./assets/chords/jazzb6dom511.mp3'),
-      correctChords: ['VI7', 'V7', 'I6', 'I6'],
+      correctChords: ['bVI7', 'V7', 'I6', 'I6'],
     },
     {
       src: require('./assets/chords/jazzb6dom514dom.mp3'),
-      correctChords: ['VI7', 'V7', 'I6', 'IV7'],
+      correctChords: ['bVI7', 'V7', 'I6', 'IV7'],
     },
     {
       src: require('./assets/chords/jazz2525.mp3'),

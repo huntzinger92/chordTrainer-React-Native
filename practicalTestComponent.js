@@ -347,7 +347,8 @@ export class PracticalTest extends React.Component {
             </TouchableOpacity>
           }
           {this.state.showAllPossible && <View>
-            <Text style={{fontSize: 20, marginLeft: 'auto', marginRight: 'auto', marginBottom: 0}}>All Possible Chords:</Text>
+            {this.state.mode !== 'jazz' && <Text style={{fontSize: 20, marginLeft: 'auto', marginRight: 'auto', marginBottom: 0}}>All Possible Chords:</Text>}
+            {this.state.mode === 'jazz' && <Text style={{fontSize: 20, marginLeft: 'auto', marginRight: 'auto', marginBottom: 0}}>All Possible Chords:*</Text>}
             <Text style={{fontSize: 16, marginLeft: 'auto', marginRight: 'auto', marginBottom: 12}}>(click to see notes)</Text>
             <View style={practicalStyles.possibleChordsWrapper}>
             {this.allPossibleChords.map(chordName =>
@@ -360,6 +361,7 @@ export class PracticalTest extends React.Component {
               )
             }
             </View>
+            {this.state.mode === 'jazz' && <Text style={{fontSize: 14, marginLeft: 'auto', marginRight: 'auto', textAlign: 'center', marginBottom: 0}}>*Extensions beyond the 7th (such as 9ths and 13ths) may be included in the selection to sound more true to the style, but are excluded from the roman numeral answers for the sake of brevity.</Text>}
           </View>
           }
         </TouchableOpacity>

@@ -465,4 +465,32 @@ export const musicQuotes = [
     "So even as the slaves sung, they sung slave songs or work songs in the fields, it was about community, it was about unity. And sometimes they didn't even come from the same tribes, they didn't even speak the same languages. Music is transcendent, and I think community has always been the goal, even before we knew the sacred text.",
     "Trey McLaughlin"
   ],
+  [
+    "Without deviation from the norm, progress is not possible.",
+    "Frank Zappa"
+  ],
+  [
+    "Without music to decorate it, time is just a bunch of boring production deadlines or dates by which bills must be paid.",
+    "Frank Zappa"
+  ],
+  [
+    "You can't always write a chord ugly enough to say what you want to say, so sometimes you have to rely on a giraffe filled with whipped cream.",
+    "Frank Zappa"
+  ],
+  [
+    "Sound is the vocabulary of nature.",
+    "Pierre Schaeffer"
+  ],
+  [
+    "The moment at which music reveals its true nature is contained in the ancient exercise of the theme with variations. The complete mystery of music is explained right there.",
+    "Pierre Schaeffer"
+  ],
+  [
+    "Music is a form of prayer.",
+    "Toru Takemitsu"
+  ],
+  [
+    "I had great parents and there was music in our house every day and my parents danced.",
+    "Poncho Sanchez"
+  ],
 ];
