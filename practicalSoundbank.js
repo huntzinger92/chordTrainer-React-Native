@@ -315,7 +315,7 @@ export const practicalSoundbank = {
     },
     {
       src: require('./assets/chords/jazz17dim3dom6.mp3'),
-      correctChords: ['IM7', 'viiø7', 'III7', 'vi7'],
+      correctChords: ['IM7', 'viiø7', 'III7', 'vim7'],
     },
     {
       src: require('./assets/chords/jazz17dim3alt6.mp3'),
@@ -335,7 +335,7 @@ export const practicalSoundbank = {
     },
     {
       src: require('./assets/chords/jazz12dom51.mp3'),
-      correctChords: ['IM7', 'II7', 'V7', 'IM7'],
+      correctChords: ['IM7', 'II7', 'V7', 'I6'],
     },
     {
       src: require('./assets/chords/jazz12alt5alt1.mp3'),

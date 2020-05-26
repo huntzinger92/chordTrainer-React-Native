@@ -148,7 +148,7 @@ export class Test extends React.Component {
       console.log('could not play sound because: ' + error);
     }
     if (this.state.transpositions) {
-      //console.log('this.detuneValue: ' + this.detuneValue);
+      console.log('this.detuneValue: ' + this.detuneValue);
       await this.playbackObject.setRateAsync(this.detuneValue, shouldCorrectPitch = false);
     };
     try {
@@ -157,6 +157,29 @@ export class Test extends React.Component {
       console.log("sound didn't play because");
       console.log(error);
     };
+    //var playbackObject = new Audio.Sound();
+    //try {
+      //await playbackObject.unloadAsync();
+    //} catch(error) {
+      //console.log("couldn't unload sound because " + error);
+    //};
+    //try {
+      //await playbackObject.loadAsync(chordObj.src, {}, downloadFirst = true);
+    //} catch(error) {
+      //console.log("couldn't load sound because " + error);
+    //};
+    //if (this.state.transpositions) {
+      //try {
+        //await playbackObject.setRateAsync(this.detuneValue, shouldCorrectPitch = false);
+      //} catch(error) {
+        //console.log("couldn't transpose because: " + error);
+      //};
+    //};
+    //try {
+      //await playbackObject.playAsync();
+    //} catch(error) {
+      //console.log("couldn't play the sound because " + error);
+    //};
   };
 
   showAlert() {

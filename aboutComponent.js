@@ -29,7 +29,7 @@ export function About() {
       <Text style={styles.explanationIntroText}>
         Want to report a bug or just say hello?
       </Text>
-      <Text style={[styles.explanationIntroText, {textDecorationLine: 'underline', textAlign: 'center'}]} onPress={() => Linking.openURL('https://trevorspheresmith.com/contact')}>Contact me!</Text>
+      <Text style={[styles.explanationIntroText, {textAlign: 'center', fontSize: 24}]} onPress={() => Linking.openURL('https://trevorspheresmith.com/contact')}>Contact me!</Text>
     </View>
   );
 };
