@@ -271,7 +271,7 @@ export const practicalSoundbank = {
     },
     {
       src: require('./assets/chords/jazz25alt16.mp3'),
-      correctChords: ['iim7', 'V7alt', 'IM7', 'VI7'],
+      correctChords: ['iim7', 'V7alt', 'I6', 'vim7'],
     },
     {
       src: require('./assets/chords/jazz1b3b6b2.mp3'),

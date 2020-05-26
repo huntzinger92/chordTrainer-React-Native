@@ -458,7 +458,7 @@ export const musicQuotes = [
     "Pete Seeger"
   ],
   [
-    "The creative arts have a way of bringing things or putting things in front of us that we can easily avoid in our day to day. And I do think that hearing this music...I think that it will definitely bring people to an awareness in general of our history, of culturally where we've come from, and the things that have been endured.",
+    "The creative arts have a way of bringing things or putting things in front of us that we can easily avoid in our day to day...I think that it will definitely bring people to an awareness in general of our history, of culturally where we've come from, and the things that have been endured.",
     "Trey McLaughlin"
   ],
   [

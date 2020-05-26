@@ -371,7 +371,7 @@ export class PracticalTest extends React.Component {
             onPress={() => this.playOneChord()}
           >
             <Text style={practicalStyles.oneChordLabel}>Hear the tonic:</Text>
-            <Text style={{fontSize: 21, fontWeight: 'bold', fontFamily: 'serif', alignSelf: 'center'}}>IM7</Text>
+            <Text style={{fontSize: 21, fontWeight: 'bold', alignSelf: 'center'}}>IM7</Text>
           </TouchableOpacity>
         </View>
         }

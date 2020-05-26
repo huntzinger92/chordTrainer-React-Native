@@ -38,7 +38,7 @@ const App: () => React$Node = (props) => {
   const [displayComponent, setDisplayComponent] = useState('home');
   return (
     <ScrollView style={styles.appWrapper}>
-      <StatusBar barStyle="dark-content" />
+      
       <View style={styles.titleWrapper}>
         {displayComponent !== 'home' && <TouchableOpacity
           onPress={() => setDisplayComponent('home')}
