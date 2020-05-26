@@ -200,10 +200,21 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 7,
   },
+  explanationHeaderWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    marginBottom: 10,
+  },
   explanationHeader: {
-    textAlign: 'center',
-    fontSize: 23,
-    marginBottom: 5,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 20,
+    marginBottom: 2,
+  },
+  pageNavigationButtons: {
+    marginBottom: 4,
   },
   explanationIntroText: {
     fontSize: 18,

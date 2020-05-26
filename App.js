@@ -38,7 +38,7 @@ const App: () => React$Node = (props) => {
   const [displayComponent, setDisplayComponent] = useState('home');
   return (
     <ScrollView style={styles.appWrapper}>
-      
+
       <View style={styles.titleWrapper}>
         {displayComponent !== 'home' && <TouchableOpacity
           onPress={() => setDisplayComponent('home')}
@@ -86,7 +86,7 @@ const App: () => React$Node = (props) => {
           <Explanation/>
           <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
-            style={[styles.navigationButtons, {width: 185, marginTop: 15}]}
+            style={[styles.navigationButtons, {width: 185, marginTop: 30}]}
           >
             <Text style={styles.navigationText}>Try the quiz!</Text>
           </TouchableOpacity>
