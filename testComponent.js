@@ -87,6 +87,8 @@ export class Test extends React.Component {
     //this.listener = new THREE.AudioListener();
     //this.audioLoader = new THREE.AudioLoader();
     this.playbackObject = new Audio.Sound(); //used to temporarily hold each chord to be played (need access within playMusic and componentDidUpdate)
+    this.playbackObject1 = new Audio.Sound();
+    this.playbackObjectTracker = 0;
     this.chordsToBePlayed = []; //used to temporarily hold a list of pre-loaded sound objects to avoid delay on playback. to be cleared out when this.state.chords is
     this.detuneValue = 0; //used to detune audio to enable transpositions
     this.count = 0; //count will be used to keep track of how many chords have played, function playMusic clears intervalID when count === this.state.amount
@@ -137,49 +139,51 @@ export class Test extends React.Component {
   };
 
   async loadAndPlaySound(chordObj) {
-    try {
-      await this.playbackObject.unloadAsync();
-    } catch(error) {
-      console.log("couldn't unload sound because: " + error);
+    if (this.playbackObjectTracker === 0) {
+      this.playbackObjectTracker = 1;
+      try {
+        await this.playbackObject.unloadAsync();
+      } catch(error) {
+        console.log("couldn't unload sound because: " + error);
+      };
+      try {
+        await this.playbackObject.loadAsync(chordObj.src, {});
+      } catch(error) {
+        console.log('could not play sound because: ' + error);
+      }
+      if (this.state.transpositions) {
+        console.log('this.detuneValue: ' + this.detuneValue);
+        await this.playbackObject.setRateAsync(this.detuneValue);
+      };
+      try {
+        await this.playbackObject.playAsync();
+      } catch (error) {
+        console.log("sound didn't play because");
+        console.log(error);
+      };
+    } else {
+      this.playbackObjectTracker = 0;
+      try {
+        await this.playbackObject1.unloadAsync();
+      } catch(error) {
+        console.log("couldn't unload sound because: " + error);
+      };
+      try {
+        await this.playbackObject1.loadAsync(chordObj.src, {});
+      } catch(error) {
+        console.log('could not play sound because: ' + error);
+      }
+      if (this.state.transpositions) {
+        //console.log('this.detuneValue: ' + this.detuneValue);
+        await this.playbackObject1.setRateAsync(this.detuneValue);
+      };
+      try {
+        await this.playbackObject1.playAsync();
+      } catch (error) {
+        console.log("sound didn't play because");
+        console.log(error);
+      };
     };
-    try {
-      await this.playbackObject.loadAsync(chordObj.src, {}, downloadFirst = true);
-    } catch(error) {
-      console.log('could not play sound because: ' + error);
-    }
-    if (this.state.transpositions) {
-      console.log('this.detuneValue: ' + this.detuneValue);
-      await this.playbackObject.setRateAsync(this.detuneValue, shouldCorrectPitch = false);
-    };
-    try {
-      await this.playbackObject.playAsync();
-    } catch (error) {
-      console.log("sound didn't play because");
-      console.log(error);
-    };
-    //var playbackObject = new Audio.Sound();
-    //try {
-      //await playbackObject.unloadAsync();
-    //} catch(error) {
-      //console.log("couldn't unload sound because " + error);
-    //};
-    //try {
-      //await playbackObject.loadAsync(chordObj.src, {}, downloadFirst = true);
-    //} catch(error) {
-      //console.log("couldn't load sound because " + error);
-    //};
-    //if (this.state.transpositions) {
-      //try {
-        //await playbackObject.setRateAsync(this.detuneValue, shouldCorrectPitch = false);
-      //} catch(error) {
-        //console.log("couldn't transpose because: " + error);
-      //};
-    //};
-    //try {
-      //await playbackObject.playAsync();
-    //} catch(error) {
-      //console.log("couldn't play the sound because " + error);
-    //};
   };
 
   showAlert() {
@@ -504,9 +508,9 @@ export class Test extends React.Component {
       this.loadAndPlaySound(this.state.chords[this.count]);
       this.count++;
       if (this.state.transpositions) { //only stagger playback if transpositions are enabled
-        this.timeout = setTimeout(this.playMusic, 1710 * this.detuneValue, this.state.amount); //note: timeout value has to be adjusted according to detune value because detune alters playback speed of chords
+        this.timeout = setTimeout(this.playMusic, 1650 / this.detuneValue, this.state.amount); //note: timeout value has to be adjusted according to detune value because detune alters playback speed of chords
       } else {
-        this.timeout = setTimeout(this.playMusic, 1710, this.state.amount);
+        this.timeout = setTimeout(this.playMusic, 1650, this.state.amount);
       };
 
     } else {
