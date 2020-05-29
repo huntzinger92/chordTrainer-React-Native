@@ -8,13 +8,15 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+//backgroundColor: '#ebf1fa',
+
 export const styles = StyleSheet.create({
   scrollView: {
     backgroundColor: Colors.lighter,
   },
   appWrapper: {
-    backgroundColor: '#ebf1fa',
     minHeight: '100%',
+
   },
   allowedWrapper: {
     padding: 10,
@@ -129,7 +131,7 @@ export const styles = StyleSheet.create({
     elevation: 3,
   },
   chordUnanswered: {
-    backgroundColor: 'skyblue',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
@@ -138,7 +140,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   chordCorrect: {
-    backgroundColor: 'green',
+    backgroundColor: '#a4f5ba',
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
@@ -147,7 +149,7 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
   },
   chordIncorrect: {
-    backgroundColor: 'red',
+    backgroundColor: '#f59f9f',
     justifyContent: 'center',
     alignItems: 'center',
     height: 50,
@@ -195,6 +197,7 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
     marginTop: 12,
+    marginBottom: 10,
     borderWidth: 1,
     borderRadius: 5,
     backgroundColor: 'white',
@@ -207,10 +210,22 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     marginBottom: 10,
   },
-  explanationHeader: {
+  explanationSubheader: {
     marginLeft: 'auto',
     marginRight: 'auto',
     fontSize: 20,
+    marginBottom: 7,
+  },
+  explanationFooterWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  explanationHeader: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    fontSize: 22,
     marginBottom: 2,
   },
   pageNavigationButtons: {
@@ -245,15 +260,28 @@ export const styles = StyleSheet.create({
   exampleRowGrid: {
     flexDirection: 'row',
   },
+  typeRowGrid: {
+    padding: 10,
+  },
   exampleRowTitle: {
     flex: 3,
     alignItems: 'center',
+  },
+  typeRowTitle: {
+    flex: 4,
+    alignItems: 'center',
+    marginRight: 5,
   },
   exampleRowTitleText: {
     marginLeft: 'auto',
   },
   exampleViewGrid: {
     flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  typeViewGrid: {
+    flex: 3,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
@@ -266,7 +294,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   body: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.black,
   },
   sectionContainer: {
     marginTop: 32,
@@ -388,9 +416,9 @@ export const styles = StyleSheet.create({
     marginLeft: 0,
     marginRight: 0,
     padding: 5,
-    backgroundColor: 'white',
     borderBottomWidth: 2,
     justifyContent: 'center',
+    backgroundColor: 'white',
   },
   titleHeader: {
     fontSize: 23,
@@ -401,13 +429,20 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     alignSelf: 'center',
   },
+  typeGridText: {
+    fontSize: 15,
+    marginBottom: 6,
+  },
   homeButton: {
-    backgroundColor: 'white',
     marginLeft: 4,
     alignSelf: 'center',
   },
   highlight: {
     fontWeight: '700',
+  },
+  backgroundImage: {
+    resizeMode: 'cover',
+    minHeight: '100%',
   },
   footer: {
     color: Colors.dark,

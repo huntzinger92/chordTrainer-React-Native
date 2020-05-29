@@ -63,6 +63,7 @@ export class Test extends React.Component {
       displayPossible: false, //toggles display of all possible chords with current settings
       displaySettings: false, //toggles display of settings/quiz
       showAlert: false,
+      perfunctoryRender: false,
     };
     this.renderMusic = this.renderMusic.bind(this);
     this.getChords = this.getChords.bind(this);
@@ -152,7 +153,7 @@ export class Test extends React.Component {
         console.log('could not play sound because: ' + error);
       }
       if (this.state.transpositions) {
-        console.log('this.detuneValue: ' + this.detuneValue);
+        //console.log('this.detuneValue: ' + this.detuneValue);
         await this.playbackObject.setRateAsync(this.detuneValue);
       };
       try {
@@ -522,7 +523,7 @@ export class Test extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{backgroundColor: '#ebf1fa'}}>
+      <ScrollView>
         {this.state.displaySettings && <View style={styles.settingsWrapper}>
         <TouchableOpacity
           onPress={() => this.toggleDisplay()}
@@ -641,7 +642,7 @@ export class Test extends React.Component {
           <ToggleSwitch
             isOn={this.state.transpositions}
             onColor='#404040'
-            offColor='#d4d4d4'
+            offColor='#8a8a8a'
             size='medium'
             onToggle={() => this.handleTranspositions()}
             style={styles.settingsSlider}
@@ -652,7 +653,7 @@ export class Test extends React.Component {
           <ToggleSwitch
             isOn={this.state.inversions}
             onColor='#404040'
-            offColor='#d4d4d4'
+            offColor='#8a8a8a'
             size='medium'
             onToggle={() => this.handleInversions()}
             style={styles.settingsSlider}
@@ -663,7 +664,7 @@ export class Test extends React.Component {
           <ToggleSwitch
             isOn={this.state.chordClass === 'seventh'}
             onColor='#404040'
-            offColor='#d4d4d4'
+            offColor='#8a8a8a'
             size='medium'
             onToggle={() => this.toggleChordClass()}
             style={styles.settingsSlider}
@@ -674,7 +675,7 @@ export class Test extends React.Component {
           <ToggleSwitch
             isOn={this.state.loop}
             onColor='#404040'
-            offColor='#d4d4d4'
+            offColor='#8a8a8a'
             size='medium'
             onToggle={() => this.handleLoop()}
             style={styles.settingsSlider}
@@ -685,7 +686,7 @@ export class Test extends React.Component {
           <ToggleSwitch
             isOn={this.state.displayPossible}
             onColor='#404040'
-            offColor='#d4d4d4'
+            offColor='#8a8a8a'
             size='medium'
             onToggle={() => this.handleDisplayPossible()}
             style={styles.settingsSlider}
@@ -694,7 +695,7 @@ export class Test extends React.Component {
         </TouchableOpacity>
 
         </View>}
-        {!this.state.displaySettings && <View id='quiz-wrapper'>
+        {!this.state.displaySettings && <View>
           <View style={styles.soundButtonWrapper}>
             <TouchableOpacity
               onPress={() => {this.playSound();}}

@@ -32,7 +32,7 @@ export class QuizUI extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clicked: {}, //object with boolean for each button element's clicked state (key is trivial integer value unique to button), passed to button components as prop
+      clicked: {}, //object with boolean for each button element's clicked state (key is trivial integer value unique to button), passed to button components as prop,
     };
     this.makeClicked = this.makeClicked.bind(this);
     this.getButtons = this.getButtons.bind(this);
@@ -103,6 +103,11 @@ export class QuizUI extends React.Component {
       } else {
         chord.quality = chord[chordClass].quality;
       };
+    });
+
+    //necessary for re-rendering when some settings change that DON'T alter the set of chords
+    this.setState({
+      clicked: this.state.clicked
     });
 
     this.possibleChordNames = this.newAllowedList.map(function(a) {

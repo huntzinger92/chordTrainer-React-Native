@@ -450,7 +450,7 @@ export const musicQuotes = [
     "Thomas Ades"
   ],
   [
-    "Creation is a bird without a flight plan, that will never fly in a straight line.",
+    "Creation is a bird without a flight plan that will never fly in a straight line.",
     "Violeta Parra"
   ],
   [

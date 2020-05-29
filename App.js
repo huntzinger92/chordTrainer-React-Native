@@ -20,7 +20,8 @@ import {
   View,
   Text,
   StatusBar,
-  Picker
+  Picker,
+  ImageBackground
 } from 'react-native';
 
 import { CheckBox } from 'native-base';
@@ -37,8 +38,9 @@ const App: () => React$Node = (props) => {
   //five possible options: 'home', 'about', 'explanation', 'test', 'practicalTest'
   const [displayComponent, setDisplayComponent] = useState('home');
   return (
+    <ImageBackground source={require('./assets/whiteTexture.jpg')} style={styles.backgroundImage}>
     <ScrollView style={styles.appWrapper}>
-
+      <StatusBar barStyle='default'/>
       <View style={styles.titleWrapper}>
         {displayComponent !== 'home' && <TouchableOpacity
           onPress={() => setDisplayComponent('home')}
@@ -88,7 +90,7 @@ const App: () => React$Node = (props) => {
             onPress={() => setDisplayComponent('test')}
             style={[styles.navigationButtons, {width: 185, marginTop: 30}]}
           >
-            <Text style={styles.navigationText}>Try the quiz!</Text>
+            <Text style={styles.navigationText}>Try the Quiz!</Text>
           </TouchableOpacity>
         </View>
       }
@@ -101,6 +103,7 @@ const App: () => React$Node = (props) => {
         </View>
       }
     </ScrollView>
+    </ImageBackground>
   );
 };
 
