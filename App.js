@@ -34,9 +34,36 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+  setTestDeviceIDAsync,
+} from 'expo-ads-admob';
+
+// Set global test device ID
+//await setTestDeviceIDAsync('EMULATOR');
+
 const App: () => React$Node = (props) => {
   //five possible options: 'home', 'about', 'explanation', 'test', 'practicalTest'
   const [displayComponent, setDisplayComponent] = useState('home');
+  const [correctCount, setCorrectCount] = useState(0);
+  function incrementCorrectCount() {
+    //users get 8 correct answers and then an interstitial loads
+    if (correctCount === 7) {
+      setCorrectCount(0);
+      //request interstitial
+      createInterstitial();
+    } else {
+      setCorrectCount(correctCount + 1);
+    };
+  };
+  async function createInterstitial() {
+    await AdMobInterstitial.setAdUnitID('ca-app-pub-5478603993874180/3114601666'); // Test ID, Replace with your-admob-unit-id
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+    await AdMobInterstitial.showAdAsync();
+  };
   return (
     <ImageBackground source={require('./assets/whiteTexture.jpg')} style={styles.backgroundImage}>
     <ScrollView style={styles.appWrapper}>
@@ -80,29 +107,53 @@ const App: () => React$Node = (props) => {
       }
       {displayComponent === 'about' &&
         <View>
+          <View style={{marginTop: 0}}>
+            <AdMobBanner
+              bannerSize="fullBanner"
+              adUnitID="ca-app-pub-5478603993874180/3789389088" // Test ID, Replace with your-admob-unit-id
+              servePersonalizedAds // true or false
+            />
+          </View>
           <About/>
         </View>
       }
       {displayComponent === 'explanation' &&
         <View>
+          <AdMobBanner
+            bannerSize="fullBanner"
+            adUnitID="ca-app-pub-5478603993874180/3789389088" // Test ID, Replace with your-admob-unit-id
+            servePersonalizedAds // true or false
+          />
           <Explanation/>
           <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
-            style={[styles.navigationButtons, {width: 185, marginTop: 30}]}
+            style={[styles.navigationButtons, {width: 185, marginTop: 0, marginBottom: 10}]}
           >
-            <Text style={styles.navigationText}>Try the Quiz!</Text>
+            <Text style={[styles.navigationText, {marginBottom: 0}]}>Try the Quiz!</Text>
           </TouchableOpacity>
         </View>
       }
       {displayComponent === 'test' &&
-        <Test/>
+        <Test
+          incrementCorrectCount={incrementCorrectCount}
+        />
       }
       {displayComponent === 'practicalTest' &&
         <View>
-          <PracticalTest/>
+          <PracticalTest
+            incrementCorrectCount={incrementCorrectCount}
+          />
         </View>
       }
+      <View style={{marginBottom: 0}}>
+        <AdMobBanner
+          bannerSize="fullBanner"
+          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
+          servePersonalizedAds // true or false
+        />
+      </View>
     </ScrollView>
+
     </ImageBackground>
   );
 };

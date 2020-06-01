@@ -112,10 +112,14 @@ export class PracticalTest extends React.Component {
     if (this.state.mode !== 'jazz' && this.correctCount === 2) {
       this.correctCount = 0;
       this.getQuote();
+      //important for loading interstitial:
+      this.props.incrementCorrectCount();
       this.setState({showAlert: true, stop: true});
     } else if (this.correctCount === 3) {
       this.correctCount = 0;
       this.getQuote();
+      //important for loading interstitial:
+      this.props.incrementCorrectCount();
       this.setState({showAlert: true, stop: true});
     } else {
       this.correctCount++;

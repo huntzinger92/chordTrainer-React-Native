@@ -11,16 +11,24 @@ import {Audio} from 'expo-av';
 import ToggleSwitch from 'toggle-switch-react-native';
 
 import {styles} from './styles.js';
-
+//QuizUI handles the rendering of buttons, all possible chords, and the styling of them on click
 import {QuizUI} from './quizUIComponent.js';
 
+//icons
 import { FontAwesome } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+
 import AwesomeAlert from 'react-native-awesome-alerts';
 
-//import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-//import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+//ads
+import {
+  AdMobBanner,
+  AdMobInterstitial,
+  PublisherBanner,
+  AdMobRewarded,
+  setTestDeviceIDAsync,
+} from 'expo-ads-admob';
 
 import {
   SafeAreaView,
@@ -63,6 +71,7 @@ export class Test extends React.Component {
       displayPossible: false, //toggles display of all possible chords with current settings
       displaySettings: false, //toggles display of settings/quiz
       showAlert: false,
+      correctCount: 0, //gets to 13, then createInterstitial requests an interstitial and resets correctCount. Incremented by one after all answers made correctly.
     };
     this.renderMusic = this.renderMusic.bind(this);
     this.getChords = this.getChords.bind(this);
@@ -128,6 +137,13 @@ export class Test extends React.Component {
     //this.playSound();
   };
 
+  //async createInterstitial() {
+    //console.log('creating interstitial...');
+    //await AdMobInterstitial.setAdUnitID('ca-app-pub-5478603993874180/3114601666'); // Test ID, Replace with your-admob-unit-id
+    //await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+    //await AdMobInterstitial.showAdAsync();
+  //};
+
   toggleDisplay() {
     if (this.state.displaySettings) {
       //when going to quiz view (away from settings), play sound
@@ -187,10 +203,13 @@ export class Test extends React.Component {
   };
 
   showAlert() {
+    this.props.incrementCorrectCount();
     var index = Math.floor(Math.random() * musicQuotes.length);
     var randomQuote = musicQuotes[index];
     this.musicQuote = '"' + randomQuote[0] + '"' + '\n\n- ' + randomQuote[1];
-    this.setState({showAlert: true});
+    this.setState({
+      showAlert: true
+    });
   };
 
   hideAlert() {

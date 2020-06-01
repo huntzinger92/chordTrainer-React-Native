@@ -16,7 +16,6 @@ export const styles = StyleSheet.create({
   },
   appWrapper: {
     minHeight: '100%',
-
   },
   allowedWrapper: {
     padding: 10,
