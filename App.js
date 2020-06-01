@@ -66,7 +66,7 @@ const App: () => React$Node = (props) => {
   };
   return (
     <ImageBackground source={require('./assets/whiteTexture.jpg')} style={styles.backgroundImage}>
-    <ScrollView style={styles.appWrapper}>
+    <View style={styles.appWrapper}>
       <StatusBar barStyle='default'/>
       <View style={styles.titleWrapper}>
         {displayComponent !== 'home' && <TouchableOpacity
@@ -77,6 +77,7 @@ const App: () => React$Node = (props) => {
         </TouchableOpacity>}
         <Text style={[styles.titleHeader, displayComponent !== 'home' ? {marginLeft: 8, marginTop: 8} : {fontSize: 27}]}>A Chord Progression Ear Trainer</Text>
       </View>
+      <ScrollView>
       {displayComponent === 'home' &&
         <View style={styles.homeWrapper}>
           <TouchableOpacity
@@ -107,7 +108,7 @@ const App: () => React$Node = (props) => {
       }
       {displayComponent === 'about' &&
         <View>
-          <View style={{marginTop: 0}}>
+          <View style={{marginTop: 0, height: 60}}>
             <AdMobBanner
               bannerSize="fullBanner"
               adUnitID="ca-app-pub-5478603993874180/3789389088" // Test ID, Replace with your-admob-unit-id
@@ -119,11 +120,13 @@ const App: () => React$Node = (props) => {
       }
       {displayComponent === 'explanation' &&
         <View>
-          <AdMobBanner
-            bannerSize="fullBanner"
-            adUnitID="ca-app-pub-5478603993874180/3789389088" // Test ID, Replace with your-admob-unit-id
-            servePersonalizedAds // true or false
-          />
+          <View style={{marginTop: 0, height: 60}}>
+            <AdMobBanner
+              bannerSize="fullBanner"
+              adUnitID="ca-app-pub-5478603993874180/3789389088" // Test ID, Replace with your-admob-unit-id
+              servePersonalizedAds // true or false
+            />
+          </View>
           <Explanation/>
           <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
@@ -145,15 +148,15 @@ const App: () => React$Node = (props) => {
           />
         </View>
       }
-      <View style={{marginBottom: 0}}>
+      </ScrollView>
+      <View style={{marginTop: 'auto', borderWidth: 1}}>
         <AdMobBanner
           bannerSize="fullBanner"
           adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
           servePersonalizedAds // true or false
         />
       </View>
-    </ScrollView>
-
+    </View>
     </ImageBackground>
   );
 };
