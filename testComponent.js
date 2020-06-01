@@ -63,7 +63,6 @@ export class Test extends React.Component {
       displayPossible: false, //toggles display of all possible chords with current settings
       displaySettings: false, //toggles display of settings/quiz
       showAlert: false,
-      perfunctoryRender: false,
     };
     this.renderMusic = this.renderMusic.bind(this);
     this.getChords = this.getChords.bind(this);
@@ -91,7 +90,7 @@ export class Test extends React.Component {
     this.playbackObject1 = new Audio.Sound();
     this.playbackObjectTracker = 0;
     this.chordsToBePlayed = []; //used to temporarily hold a list of pre-loaded sound objects to avoid delay on playback. to be cleared out when this.state.chords is
-    this.detuneValue = 0; //used to detune audio to enable transpositions
+    this.detuneValue = ((((Math.floor(Math.random() * 4)) - 3) * .0538) + 1); //used to detune audio to enable transpositions, initialized with non-zero value (important for not throwing an error later)
     this.count = 0; //count will be used to keep track of how many chords have played, function playMusic clears intervalID when count === this.state.amount
     this.chordsAllowed = [soundbank[0], soundbank[3], soundbank[4]]; //used to generate random chord progressions, to be initialized with 1,4,5 in major soundbank[3], soundbank[4]
     //on all correct chords clicked, random quote loaded here, then used in the AwesomeAlert component
@@ -254,8 +253,11 @@ export class Test extends React.Component {
 
   //transposition settings change
   handleTranspositions() {
+    //initializing this.detuneValue as soon as transpositions are enabled prevents a bug where, after setting transpositions to true and hitting play, an error is thrown
+    //this.detuneValue = (((Math.floor(Math.random() * 4)) - 3) * .0538) + 1;
+
     this.setState({
-      transpositions: !this.state.transpositions
+      transpositions: !this.state.transpositions,
     });
   };
 
@@ -398,6 +400,10 @@ export class Test extends React.Component {
     this.setState({
       stop: false
     });
+    //console.log('this.state:');
+    //console.log(this.state);
+    //console.log(styles.soundButtonWrapper);
+    //console.log(styles.soundButton);
     if (this.state.chords.length > 0) {
       this.renderMusic();
     } else {
@@ -480,15 +486,15 @@ export class Test extends React.Component {
     if (this.state.init) {
       //note: this needs to be written to accomodate the speed setting of react-native-sound library. Speed is set as an integer percentage (.9 = 90%)
       if (this.state.transpositions) {
-        //1.0595 is the percent by which a frequency needs to be shifted to change by a half-step
         this.detuneValue = (((Math.floor(Math.random() * 4)) - 3) * .0538) + 1; //ranges from -3 to +2 half steps, or 1 - 3*.05333 to 1 + 2*1.05333
-        //this.detuneValue = 0.84;
       };
       this.setState({
         init: false
-      });
+      }, () => this.playMusic(this.state.amount));
+    } else {
+      this.playMusic(this.state.amount);
     };
-    this.playMusic(this.state.amount);
+
   };
 
   //this function is responsible for initiating sound
@@ -698,7 +704,7 @@ export class Test extends React.Component {
         {!this.state.displaySettings && <View>
           <View style={styles.soundButtonWrapper}>
             <TouchableOpacity
-              onPress={() => {this.playSound();}}
+              onPress={() => {this.playSound()}}
               style={styles.soundButton}
             >
               <AntDesign name='caretright' size={24}/>

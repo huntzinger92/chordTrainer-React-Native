@@ -408,7 +408,7 @@ export class Explanation extends React.Component {
       {this.state.pageNumber === 6 &&
         <View>
           <Text style={styles.explanationSubheader}>What next?</Text>
-          <Text style={styles.explanationText}>Now that you have a basic understanding of what chords are and they are created within a key, the next step is
+          <Text style={styles.explanationText}>Now that you have a basic understanding of what chords are and how they are created within a key, the next step is
           getting used to how they sound when played in a progression!
           </Text>
           <Text style={styles.explanationText}>All you need to do to get started is hit the "Try the Quiz!" button below, which will take you a

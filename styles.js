@@ -422,7 +422,6 @@ export const styles = StyleSheet.create({
   },
   titleHeader: {
     fontSize: 23,
-    fontFamily: 'serif',
     color: 'black',
     marginTop: 3,
     marginBottom: 7,

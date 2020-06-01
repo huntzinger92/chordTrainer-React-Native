@@ -48,7 +48,7 @@ const App: () => React$Node = (props) => {
         >
           <FontAwesome name="home" size={38} color="black"/>
         </TouchableOpacity>}
-        <Text style={[styles.titleHeader, displayComponent !== 'home' ? {marginLeft: 8, marginTop: 8} : {fontSize: 24}]}>Chord Progression Ear Trainer</Text>
+        <Text style={[styles.titleHeader, displayComponent !== 'home' ? {marginLeft: 8, marginTop: 8} : {fontSize: 27}]}>A Chord Progression Ear Trainer</Text>
       </View>
       {displayComponent === 'home' &&
         <View style={styles.homeWrapper}>
