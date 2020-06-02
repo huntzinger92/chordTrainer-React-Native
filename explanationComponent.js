@@ -97,7 +97,7 @@ export class Explanation extends React.Component {
           <Text style={styles.explanationText}>Roman numerals can be uppercase, lowercase, and have a variety of symbols added to them, depending on the chord's
           type/quality.
           </Text>
-          <Text style={styles.explanationText}>Below is a chart of common chord types, what intervals they are made up of (M7 means major seventh, d7 diminished seventh, etc.), and their associated roman numeral style.
+          <Text style={styles.explanationText}>Below is a chart of common chord types, what intervals they are made up of (M3 means major third, m3 minor third, etc.), and their associated roman numeral style.
           </Text>
           <View style={[styles.exampleGrid, {marginBottom: 15}]}>
 
@@ -318,8 +318,8 @@ export class Explanation extends React.Component {
       {this.state.pageNumber === 5 &&
         <View>
         <Text style={styles.explanationSubheader}>7th Chord Types in Major Keys</Text>
-        <Text style={styles.explanationText}>The notation gets a little more complex, however, for seventh chords (which use four notes instead of three, and thus
-        have more types). Let's make a chart of the all the seventh chords of the C major scale:
+        <Text style={styles.explanationText}>The notation gets a little more complex for seventh chords. They use four notes instead of three, and thus
+        have more types. Let's make a chart of the all the seventh chords of the C major scale:
         </Text>
         <View style={styles.exampleGrid}>
           <View style={styles.exampleRowGrid}>
@@ -412,9 +412,9 @@ export class Explanation extends React.Component {
           getting used to how they sound when played in a progression!
           </Text>
           <Text style={styles.explanationText}>All you need to do to get started is hit the "Try the Quiz!" button below, which will take you a
-          test that allows you to practice hearing the difference between any two chords in a major and minor keys, with and without sevenths, and much more.
+          test that helps you practice identifying chord progressions by ear, in both major and minor keys, with and without sevenths, and more.
           </Text>
-          <Text style={styles.explanationText}>Not all chord progressions are created equal - some are much more common than others! If you want to practice with chord
+          <Text style={styles.explanationText}>Not all chord progressions are created equal - some are much more common than others! If you want to practice hearing chord
           progressions that are frequent in actual music, head over to the "Practical Examples" section, which tests you on recognizing common chord progressions, using
           practical examples from multiple genres.
           </Text>

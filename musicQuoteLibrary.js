@@ -493,4 +493,80 @@ export const musicQuotes = [
     "I had great parents and there was music in our house every day and my parents danced.",
     "Poncho Sanchez"
   ],
+  [
+    "The man that hath no music in himself, Nor is not moved with concord of sweet sounds, is fit for treasons, stratagems and spoils.",
+    "William Shakespeare"
+  ],
+  [
+    "In sweet music is such art: killing care and grief of heart fall asleep, or hearing, die.",
+    "William Shakespeare"
+  ],
+  [
+    "All I know about music is that not many people ever really hear it.",
+    "James Baldwin"
+  ],
+  [
+    "The Blues tell the story of life's difficulties, and if you think for a moment, you will realize that they take the hardest realities of life and put them into music, only to come out with some new hope or sense of triumph. This is triumphant music.",
+    "Martin Luther King Jr."
+  ],
+  [
+    "Music is the art of the prophets and the gift of God.",
+    "Martin Luther King Jr."
+  ],
+  [
+    "All of us contain Music & Truth, but most of us can't get it out.",
+    "Mark Twain"
+  ],
+  [
+    "You don’t know what you like, you like what you know. In order to know what you like, you have to know everything.",
+    "Ellis Marsalis"
+  ],
+  [
+    "Everybody talks about finding your voice. Do your homework and your voice will find you.",
+    "Branford Marsalis"
+  ],
+  [
+    "We all played bad before we played good.",
+    "Branford Marsalis"
+  ],
+  [
+    "I have the greatest respect for the brothers playing out in the street bands. They play with so much passion and honesty.",
+    "Delfeayo Marsalis"
+  ],
+  [
+    "Just like all humans can be traced back through the DNA strain to Africa, all music is related.",
+    "Delfeayo Marsalis"
+  ],
+  [
+    "When I auditioned for my high school band the band director was excited because my father was known to be a great musician. When he heard me, he said 'Are you sure you're Ellis's son?'",
+    "Wynton Marsalis"
+  ],
+  [
+    "The best way to be, is to do.",
+    "Wynton Marsalis"
+  ],
+  [
+    "Through improvisation, jazz teaches you about yourself. And through swing, it teaches you that other people are individuals too. It teaches you how to coordinate with them.",
+    "Wynton Marsalis"
+  ],
+  [
+    "I think music needs to be presented in a way so that kids can grasp songs, dances, simple music that's associated with some particular defining moment in human experience.",
+    "Michael Tilson Thomas"
+  ],
+  [
+    "I've never known a musician who regretted being one. Whatever deceptions life may have in store for you, music itself is not going to let you down.",
+    "Virgil Thomson"
+  ],
+  [
+    "Try a thing you haven't done three times. Once, to get over the fear of doing it. Twice, to learn how to do it. And a third time to figure out whether you like it or not.",
+    "Virgil Thomson"
+  ],
+  [
+    "I write and sing about whatever I am able to understand and feel. I feel that it is healthier to look out at the world through a window than through a mirror. Otherwise, all you see is yourself and whatever is behind you",
+    "Bill Withers"
+  ],
+  [
+    "Music to me is like breathing. I don't get tired of breathing, I don't get tired of music.",
+    "Ray Charles"
+  ]
 ];
