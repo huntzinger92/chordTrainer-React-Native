@@ -20,7 +20,7 @@ import {
   View,
   Text,
   StatusBar,
-  Picker,
+  BackHandler,
   ImageBackground
 } from 'react-native';
 
@@ -49,6 +49,8 @@ const App: () => React$Node = (props) => {
   //five possible options: 'home', 'about', 'explanation', 'test', 'practicalTest'
   const [displayComponent, setDisplayComponent] = useState('home');
   const [correctCount, setCorrectCount] = useState(0);
+
+  //called from test and practical components when question is answered complete
   function incrementCorrectCount() {
     //users get 8 correct answers and then an interstitial loads
     if (correctCount === 7) {
@@ -59,11 +61,22 @@ const App: () => React$Node = (props) => {
       setCorrectCount(correctCount + 1);
     };
   };
+
   async function createInterstitial() {
     await AdMobInterstitial.setAdUnitID('ca-app-pub-5478603993874180/3114601666'); // Test ID, Replace with your-admob-unit-id
     await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
     await AdMobInterstitial.showAdAsync();
   };
+
+  const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+    if (displayComponent !== 'home') {
+      setDisplayComponent('home');
+      return true;
+    } else {
+      BackHandler.exitApp();
+    };
+  });
+
   return (
     <ImageBackground source={require('./assets/whiteTexture.jpg')} style={styles.backgroundImage}>
     <View style={styles.appWrapper}>
