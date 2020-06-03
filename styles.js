@@ -289,8 +289,11 @@ export const styles = StyleSheet.create({
     right: 0,
   },
   homeWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    //alignItems: 'center',
+    //justifyContent: 'center',
+  },
+  homeButtons: {
+    marginLeft: 30,
   },
   body: {
     backgroundColor: Colors.black,
@@ -310,7 +313,7 @@ export const styles = StyleSheet.create({
     marginBottom: 50,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: 270,
+    width: 245,
     height: 70,
     borderWidth: 1,
     borderRadius: 10,
@@ -318,7 +321,7 @@ export const styles = StyleSheet.create({
   },
   navigationText: {
     textAlign: 'center',
-    fontSize: 28,
+    fontSize: 26,
   },
   pickerWrapper: {
     backgroundColor: 'white',

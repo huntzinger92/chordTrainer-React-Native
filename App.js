@@ -13,7 +13,6 @@ import {styles} from './styles.js';
 //regular components
 import {
   SafeAreaView,
-  Button,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
@@ -21,6 +20,7 @@ import {
   Text,
   StatusBar,
   BackHandler,
+  Image,
   ImageBackground
 } from 'react-native';
 
@@ -77,18 +77,23 @@ const App: () => React$Node = (props) => {
     };
   });
 
+  //<FontAwesome name="home" size={38} color="black"/>
   return (
     <ImageBackground source={require('./assets/whiteTexture.jpg')} style={styles.backgroundImage}>
     <View style={styles.appWrapper}>
       <StatusBar barStyle='default'/>
       <View style={styles.titleWrapper}>
-        {displayComponent !== 'home' && <TouchableOpacity
+        <TouchableOpacity
           onPress={() => setDisplayComponent('home')}
           style={styles.homeButton}
         >
-          <FontAwesome name="home" size={38} color="black"/>
-        </TouchableOpacity>}
-        <Text style={[styles.titleHeader, displayComponent !== 'home' ? {marginLeft: 8, marginTop: 8} : {fontSize: 27}]}>A Chord Progression Ear Trainer</Text>
+          <Image
+            source={require('./assets/iconPale.png')}
+            resizeMode='contain'
+            style={{width: 50, height: 50}}
+          />
+        </TouchableOpacity>
+        <Text style={[styles.titleHeader, {marginLeft: 8, marginTop: 8}]}>A Chord Progression Ear Trainer</Text>
       </View>
       <ScrollView>
       {displayComponent === 'home' &&
@@ -121,25 +126,13 @@ const App: () => React$Node = (props) => {
       }
       {displayComponent === 'about' &&
         <View>
-          <View style={{marginTop: 0, height: 60}}>
-            <AdMobBanner
-              bannerSize="fullBanner"
-              adUnitID="ca-app-pub-5478603993874180/3789389088" // Test ID, Replace with your-admob-unit-id
-              servePersonalizedAds // true or false
-            />
-          </View>
+
           <About/>
         </View>
       }
       {displayComponent === 'explanation' &&
         <View>
-          <View style={{marginTop: 0, height: 60}}>
-            <AdMobBanner
-              bannerSize="fullBanner"
-              adUnitID="ca-app-pub-5478603993874180/3789389088" // Test ID, Replace with your-admob-unit-id
-              servePersonalizedAds // true or false
-            />
-          </View>
+
           <Explanation/>
           <TouchableOpacity
             onPress={() => setDisplayComponent('test')}
@@ -165,8 +158,8 @@ const App: () => React$Node = (props) => {
       <View style={{marginTop: 'auto', borderWidth: 1}}>
         <AdMobBanner
           bannerSize="fullBanner"
-          adUnitID="ca-app-pub-3940256099942544/6300978111" // Test ID, Replace with your-admob-unit-id
-          servePersonalizedAds // true or false
+          adUnitID="ca-app-pub-5478603993874180/3789389088"
+          servePersonalizedAds={true}
         />
       </View>
     </View>
