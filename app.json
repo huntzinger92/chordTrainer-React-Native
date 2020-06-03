@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "A Comprehensive Chord Progression Ear Trainer",
+    "description": "This app gives the user an unprecedented degree of control over the kinds of chord progressions they would like to practice recognizing. They can enable/disable inversions, transpositions, seventh chords, looped playback, as well as any given chord in the key they are working with (most apps just make you choose between 1, 4, 5 and all chords - not this one!). The test also generates chords not just from major and minor scales, but all the modes as well. This app comes with a music theory lesson on how to construct and notate chords and a practical portion, quizzing the user on common chord progressions in real musical contexts. This tool is designed to be a one-stop shop for students need to practice recognizing chord progressions by ear.",
     "slug": "chordTrainer",
     "platforms": [
       "ios",
