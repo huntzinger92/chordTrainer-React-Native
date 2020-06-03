@@ -155,7 +155,7 @@ const App: () => React$Node = (props) => {
         </View>
       }
       </ScrollView>
-      <View style={{marginTop: 'auto', borderWidth: 1}}>
+      <View style={{marginTop: 'auto'}}>
         <AdMobBanner
           bannerSize="fullBanner"
           adUnitID="ca-app-pub-5478603993874180/3789389088"
