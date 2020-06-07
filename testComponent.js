@@ -210,6 +210,9 @@ export class Test extends React.Component {
     this.setState({
       showAlert: true
     });
+    if (this.state.loop) {
+      this.handleStop();
+    };
   };
 
   hideAlert() {
@@ -738,7 +741,7 @@ export class Test extends React.Component {
               onPress={() => {this.handleGetNewChords()}}
               style={styles.soundButton}
             >
-              <FontAwesome name="refresh" size={24} color="black" />
+              <AntDesign name="forward" size={24} color="black" />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => this.toggleDisplay()}

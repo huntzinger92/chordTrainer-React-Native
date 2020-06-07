@@ -315,7 +315,7 @@ export class PracticalTest extends React.Component {
             style={practicalStyles.soundButton}
             onPress={() => this.handleGetNewChords()}
             >
-            <FontAwesome name="refresh" size={24} color="black" />
+            <AntDesign name="forward" size={24} color="black" />
           </TouchableOpacity>
           <View style={practicalStyles.modeDropdownWrapper}>
             <Picker
