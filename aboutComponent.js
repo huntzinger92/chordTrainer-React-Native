@@ -47,7 +47,7 @@ export class About extends React.Component {
         </Text>
         <Text style={styles.explanationIntroText}>
           You can test over chord progressions (randomly generated from
-          settings you have a very fine degree of control over) in the "Take the Test" portion. If you want to practice hearing them in musical contexts, check out the
+          settings you have a very fine degree of control over) in the "Practice" portion. If you want to practice hearing them in musical contexts, check out the
           "Practical Examples" section, which quizzes you on common chord progressions in multiple genres.
         </Text>
         <Text style={styles.explanationIntroText}>
@@ -59,10 +59,10 @@ export class About extends React.Component {
           to learn that stuff, no problem! You can find a beginner friendly explanation of them <Text style={{textDecorationLine: 'underline'}} onPress={() => Linking.openURL('https://www.musictheory.net/lessons')}>here</Text>.
         </Text>
         <View style={{marginRight: 'auto', marginLeft: 'auto', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 7}}>
-          <TouchableOpacity style={{width: 160, height: 50, borderWidth: 1, borderRadius: 10, padding: 8, backgroundColor: 'white', marginRight: 7}} onPress={() => Linking.openURL('https://trevorspheresmith.com/contact')}>
+          <TouchableOpacity style={{width: 160, height: 50, borderWidth: 1, borderRadius: 10, padding: 8, paddingBottom: 10, backgroundColor: 'white', marginRight: 7}} onPress={() => Linking.openURL('https://trevorspheresmith.com/contact')}>
             <Text style={[styles.explanationIntroText, {textAlign: 'center', marginTop: 'auto', marginBottom: 'auto', fontSize: 20}]}>Contact me!</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={{textAlign: 'center', width: 160, height: 50, borderWidth: 1, borderRadius: 10, padding: 8, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', marginLeft: 7}} onPress={() => this.showAlert()}>
+          <TouchableOpacity style={{textAlign: 'center', width: 160, height: 50, borderWidth: 1, borderRadius: 10, padding: 8, paddingBottom: 10, backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', marginLeft: 7}} onPress={() => this.showAlert()}>
             <Text style={{fontSize: 20}}>Privacy Policy</Text>
           </TouchableOpacity>
         </View>

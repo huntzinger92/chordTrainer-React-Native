@@ -50,6 +50,9 @@ const App: () => React$Node = (props) => {
   const [displayComponent, setDisplayComponent] = useState('home');
   const [correctCount, setCorrectCount] = useState(0);
 
+  var background = require('./assets/whiteTexture.jpg');
+  var keyboardImg = require('./assets/splashRedPaleWide.png');
+
   //called from test and practical components when question is answered complete
   function incrementCorrectCount() {
     //users get 8 correct answers and then an interstitial loads
@@ -79,7 +82,7 @@ const App: () => React$Node = (props) => {
 
   //<FontAwesome name="home" size={38} color="black"/>
   return (
-    <ImageBackground source={require('./assets/whiteTexture.jpg')} style={styles.backgroundImage}>
+    <ImageBackground source={background} style={styles.backgroundImage}>
     <View style={styles.appWrapper}>
       <StatusBar barStyle='default'/>
       <View style={styles.titleWrapper}>
@@ -88,16 +91,22 @@ const App: () => React$Node = (props) => {
           style={styles.homeButton}
         >
           <Image
-            source={require('./assets/iconPale.png')}
+            source={require('./assets/iconRed.png')}
             resizeMode='contain'
             style={{width: 50, height: 50}}
           />
         </TouchableOpacity>
-        <Text style={[styles.titleHeader, {marginLeft: 8, marginTop: 8}]}>A Chord Progression Ear Trainer</Text>
+        <Text style={[styles.titleHeader, {marginLeft: 8, marginTop: 8}]}>Chord Progression Ear Trainer</Text>
       </View>
+      <Image
+        source={keyboardImg}
+        resizeMode='contain'
+        style={styles.backgroundKeyboard}
+      />
       <ScrollView>
       {displayComponent === 'home' &&
         <View style={styles.homeWrapper}>
+
           <TouchableOpacity
             onPress={() => setDisplayComponent('about')}
             style={[styles.navigationButtons, {marginTop: 40}]}
@@ -114,7 +123,7 @@ const App: () => React$Node = (props) => {
             onPress={() => setDisplayComponent('test')}
             style={styles.navigationButtons}
           >
-            <Text style={styles.navigationText}>Take the Test</Text>
+            <Text style={styles.navigationText}>Practice</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setDisplayComponent('practicalTest')}
@@ -138,7 +147,7 @@ const App: () => React$Node = (props) => {
             onPress={() => setDisplayComponent('test')}
             style={[styles.navigationButtons, {width: 185, marginTop: 0, marginBottom: 10}]}
           >
-            <Text style={[styles.navigationText, {marginBottom: 0}]}>Try the Quiz!</Text>
+            <Text style={[styles.navigationText, {marginBottom: 0}]}>Practice!</Text>
           </TouchableOpacity>
         </View>
       }

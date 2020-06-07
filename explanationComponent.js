@@ -72,7 +72,7 @@ export class Explanation extends React.Component {
       }
       {this.state.pageNumber === 2 &&
         <View>
-          <Text style={styles.explanationSubheader}>What are intervals and chord qualities?</Text>
+          <Text style={styles.explanationSubheader}>Intervals and Chord Qualities</Text>
           <Text style={styles.explanationText}>A chord's type (also known as its "quality") is determined by what musical intervals they are made up of.
           A musical interval is simply a measure of musical distance between two notes.
           </Text>
@@ -93,7 +93,7 @@ export class Explanation extends React.Component {
       }
       {this.state.pageNumber === 3 &&
         <View>
-          <Text style={styles.explanationSubheader}>Chord Types and How to Write Them</Text>
+          <Text style={styles.explanationSubheader}>Chord Types and Notation</Text>
           <Text style={styles.explanationText}>Roman numerals can be uppercase, lowercase, and have a variety of symbols added to them, depending on the chord's
           type/quality.
           </Text>
@@ -411,7 +411,7 @@ export class Explanation extends React.Component {
           <Text style={styles.explanationText}>Now that you have a basic understanding of what chords are and how they are created within a key, the next step is
           getting used to how they sound when played in a progression!
           </Text>
-          <Text style={styles.explanationText}>All you need to do to get started is hit the "Try the Quiz!" button below, which will take you a
+          <Text style={styles.explanationText}>All you need to do to get started is hit the "Practice!" button below, which will take you a
           test that helps you practice identifying chord progressions by ear, in both major and minor keys, with and without sevenths, and more.
           </Text>
           <Text style={styles.explanationText}>Not all chord progressions are created equal - some are much more common than others! If you want to practice hearing chord
